@@ -1,13 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/10 15:19:39 by fhamel            #+#    #+#             */
+/*   Updated: 2020/03/10 15:24:20 by fhamel           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minirt.h"
+
 int	main(int ac, char **av)
 {
 	if (ac == 2)
-		miniRT(av[1]);
+		mini_rt(av[1]);
 	else
 		ft_printf("Please select a file with \".rt\" extention.");
 	return (0);
 }
 
-int	miniRT(char *file)
+int	mini_rt(char *file)
 {
 	int		fd;
 	t_data	*data;
