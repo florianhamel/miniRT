@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 17:54:37 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/28 18:12:43 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/03/28 19:47:12 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	mini_rt(char *file)
 }
 
 int	init_data(t_data **data)
-{
+{	
 	if (!(*data = (t_data *)malloc(sizeof(t_data))))
 		return (-1);
 	(*data)->r = NULL;

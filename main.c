@@ -6,11 +6,11 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:19:39 by fhamel            #+#    #+#             */
-/*   Updated: 2020/03/28 17:55:03 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/03/28 19:46:35 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "mini_rt.h"
 
 int	main(int ac, char **av)
 {

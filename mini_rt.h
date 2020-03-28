@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/03/28 18:08:34 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/03/28 19:45:50 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ parsing.c
 int		parsing(int fd, t_data **data);
 int		get_type(char *line);
 int		check_format(int type, char *line);
-int		get_data(t_data *data, int type, char *line);
+int		get_data(t_data **data, int type, char *line);
 int		error_function(int err);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 17:21:16 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/28 18:11:50 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/03/28 18:17:16 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main()
 
 	ret = init_data(&data);
 	printf("[ret]: %d\n", ret);
-	printf("%s\n", (char *)data->objs);
-	printf("%s\n", (char *)data->cams);
+	printf("%p\n", data->r);
+	printf("%p\n", data->a);
 	return (0);
 }
