@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 17:02:13 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/28 17:45:14 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/03/29 12:25:22 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		check_current(int type, t_test *test)
 		return (error_function(5));
 	if (test->cams_lgts == 2 && (type == 0 || type == 1 ||
 	type == 4 || type == 5 || type == 6 || type == 7 || type == 8))
-		return (error_function(5));
+		return (error_function(6));
 	if (test->objs == 2 && (type == 0 || type == 1 ||
 	type == 2 || type == 3))
 		return (error_function(6));

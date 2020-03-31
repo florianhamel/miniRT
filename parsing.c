@@ -6,14 +6,14 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 14:02:01 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/28 20:05:48 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/03/29 12:13:36 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include <stdio.h>
 
-int	parsing(int fd, t_data *data)
+int	parsing(int fd, t_data **data)
 {
 	char	*line;
 	int		type;
@@ -40,8 +40,8 @@ int	parsing(int fd, t_data *data)
 			if (check_format(type, line) == -1)
 				return (-1);
 		}
-		if (get_data(&test, line, type, &data) == -1)
-			return (error_function(7));
+		// if (get_data(&test, line, type, &data) == -1)
+		// 	return (error_function(7));
 		if (ret == 0)
 				break ;
 		free(line);
@@ -102,30 +102,6 @@ int	check_format(int type, char *line)
 	return (0);
 }
 
-
-int	get_data(t_data **data, int type, char *line)
-{
-	int	ret;
-
-	ret = 0;
-	if (type == 0)
-		if (get_res(data, line) == -1)
-			return (error_function(8));
-	else if (type == 1)
-		if (get_amb(data, line) == -1)
-			return (error_function(8));
-	else if (type == 2)	
-		if (get_cams(data, line) == -1)
-				return (error_function(8));
-	else if (type == 3)
-		if (get_lgts(data, line) == -1)
-			return (error_function(8));
-	else
-		if (get_objs(data, line) == -1)
-			return (error_function(8));
-	return (0);
-}
-
 int	error_function(int err)
 {
 	if (err == 0)
@@ -143,7 +119,7 @@ int	error_function(int err)
 	if (err == 6)
 		printf("Error 6\nMissplaced object.\n");
 	if (err == 7)
-		printf("Error 7\nA problem was encountered while initializing the data.");
+		printf("Error 7\nA problem was encountered while initializing the data.\n");
 	if (err == 8)
 		printf("Error 8\nA problem was encountered while extracting the data.\n");
 	return (-1);

@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:13:56 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/26 20:46:33 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/03/29 12:22:55 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ int	check_vec(char *line)
 		if (line[i] == '.')
 		{
 			i++;
-			if (line[i] < '0' || '9' < line[i++])
+			if (line[i - 2] == '1' && line[i] != '0')
+				return (-1);
+			else if (line[i] < '0' || '9' < line[i++])
 				return (-1);
 		}
 		if (vec != 2 && line[i++] != ',')

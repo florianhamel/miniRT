@@ -1,28 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.c                                          :+:      :+:    :+:   */
+/*   data_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/28 17:54:37 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/28 23:09:22 by florianhame      ###   ########.fr       */
+/*   Created: 2020/03/30 23:50:57 by florianhame       #+#    #+#             */
+/*   Updated: 2020/03/31 00:09:38 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <fcntl.h>
-#include <stdio.h>
 
-int	mini_rt(char *file)
+int	skip_ws(char *line)
 {
-	int		fd;
-	t_data	*data;
+	int	i;
 
-	fd = open("test.rt", O_RDONLY);
-	if (init_data(&data) == -1)
-		return (error_function(7));
-	if (parsing(fd, data) == -1)
-		return (-1);
-	close(fd);
+	i = 0;
+	while (line[i] == 32 || line[i] == 9)
+		i++;
+	return (i);
 }
+
+int	skip_float(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (('0' <= line[i] && line[i] <= '9') || line[i] == '.')
+		i++;
+	return (i);
+}
+
+int	skip_coord(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (('0' <= line[i] && line[i] <= '9') || line[i] == '.' ||
+	line[i] == ',' || line[i] == '-')
+		i++;
+	return (i);
+}
+
