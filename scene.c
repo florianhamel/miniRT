@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/03 10:59:25 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/06 11:29:13 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/06 23:43:57 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,24 @@
 
 int		scene_intersect(t_data *data, double prime_ray[3])
 {
-	int		pix;
+	double	pix;
 	double	lambda;
-	double	intersec[3];
-	double	lgt_coef;
+	double	intersect[3];
+	double	f_ratio;
 
-	pix = 0;
+	pix = 3984756;
+	lambda = -1;
 	if ((lambda = sp_intersect(data, prime_ray)) != -1)
-		pix = data->sp->color;
-	intersec[0] = data->cam->x + (lambda * prime_ray[0]);
-	intersec[1] = data->cam->y + (lambda * prime_ray[1]);
-	intersec[2] = data->cam->z + (lambda * prime_ray[2]);
-	lgt_coef = get_lgt_coef(data, intersec);
-	return (pix * lgt_coef);
-}
-
-double	get_lgt_coef(t_data *data, double intersec[3])
-{
-	double	shadow_ray[3];
-	double	len;
-
-	shadow_ray[0] = data->lgt->x - intersec[0];
-	shadow_ray[1] = data->lgt->y - intersec[1];
-	shadow_ray[2] = data->lgt->z - intersec[2];
-	len = sqrt(pow(shadow_ray[0], 2) + pow(shadow_ray[1], 2) + pow(shadow_ray[2], 2));
-	normalize(&shadow_ray[0], &shadow_ray[1], &shadow_ray[2]);
-	if (sp_intersection(data, shadow_ray) == -1)
-		return ((data->lgt->power / pow(len, 2)) + data->amb->power);
-	return (data->amb->power);
+	{
+		pix = 0;
+		intersect[0] = data->cam->x + (lambda * prime_ray[0]);
+		intersect[1] = data->cam->y + (lambda * prime_ray[1]);
+		intersect[2] = data->cam->z + (lambda * prime_ray[2]);
+		f_ratio = sp_f_ratio(data, intersect);
+		if (f_ratio > 0)
+			pix = f_ratio * (double)657930;
+	}
+	return ((int)pix);
 }
 
 double	sp_intersect(t_data *data, double prime_ray[3])
@@ -57,16 +47,39 @@ double	sp_intersect(t_data *data, double prime_ray[3])
 	b = 2 * ((data->cam->x * prime_ray[0]) + (data->cam->y * prime_ray[1]) +
 	(data->cam->z * prime_ray[2])) - 2 * ((data->sp->x * prime_ray[0]) + 
 	(data->sp->y * prime_ray[1]) + (data->sp->z * prime_ray[2]));
-	c = data->cam->x + data->cam->y + data->cam->z - 2 *
-	((data->cam->x * data->sp->x) + (data->cam->y * data->sp->y) +
-	(data->cam->z * data->sp->z)) + pow(data->sp->x, 2) +
-	pow(data->sp->y, 2) + pow(data->sp->z, 2) - pow(data->sp->diam / 2, 2);
+	c = (pow(data->cam->x, 2) + pow(data->cam->y, 2) + pow(data->cam->z, 2)) + 
+	(-2 * ((data->cam->x * data->sp->x) + (data->cam->y * data->sp->y)) +
+	(data->cam->z * data->sp->z)) +
+	pow(data->sp->x, 2) + pow(data->sp->y, 2) + pow(data->sp->z, 2) - pow(data->sp->diam / 2, 2);
 	delta = pow(b, 2) - (4 * a * c);
 	if (delta < 0)
 		return (-1);
-	if (delta == 0)
+	if (delta == 0 && (-b / (2 * a)) > 0)
 		return (-b / (2 * a));
-	return (fmax((-b - sqrt(delta)) / (2 * a), (b - sqrt(delta) / (2 * a))));
+	if (((-b + sqrt(delta)) / (2 * a) < 0) && ((-b - sqrt(delta)) / (2 * a) < 0))
+		return (-1);
+	if ((-b + sqrt(delta)) / (2 * a) > 0 && (-b - sqrt(delta)) / (2 * a) > 0)
+		return (fmin((-b + sqrt(delta)) / (2 * a), (-b - sqrt(delta) / (2 * a))));
+	return (fmax((-b + sqrt(delta)) / (2 * a), (-b - sqrt(delta) / (2 * a))));
+}
+
+double	sp_f_ratio(t_data *data, double intersect[3])
+{
+	double	f_ratio;
+	double	vec[3];
+	double	normal[3];
+
+	f_ratio = 0;
+	vec[0] = intersect[0] - data->lgt->x;
+	vec[1] = intersect[1] - data->lgt->y;
+	vec[2] = intersect[2] - data->lgt->z;
+	normalize(&vec[0], &vec[1], &vec[2]);
+	normal[0] = data->sp->x - intersect[0];
+	normal[1] = data->sp->y - intersect[1]; 
+	normal[2] = data->sp->z - intersect[2];
+	normalize(&normal[0], &normal[1], &normal[2]);
+	f_ratio = dot_product(normal, vec);
+	return (f_ratio);
 }
 
 void	print_scene(int **pix, t_data *data)

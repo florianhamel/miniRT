@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 15:35:02 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/04 00:13:13 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/06 18:48:13 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ int		get_pix(t_data *data, int pix_y, int pix_x)
 	int		pix;
 
 	get_prime_ray(data, pix_y, pix_x, prime_ray);
-	pix = scene_intersection(data, prime_ray);
+	pix = scene_intersect(data, prime_ray);
+	if (pix > 16777215)
+		return (16777215);
 	return (pix);
 }
 
@@ -89,12 +91,12 @@ double	get_sp_y(t_data *data, int pix_y, double film_y)
 
 	if (data->res->x >= data->res->y)
 	{
-		screen_space_y = (1 - 2 * ((pix_y + 0.5) / (double)data->res->y)) * 
+		screen_space_y = (1 - (2 * (pix_y + 0.5) / (double)data->res->y)) *
 		tan((data->cam->fov * M_PI / (double)180) / 2);
 	}
 	else
 	{
-		screen_space_y = (1 - 2 * ((pix_y + 0.5) / (double)data->res->y)) *
+		screen_space_y = (1 - (2 * (pix_y + 0.5) / (double)data->res->y)) *
 		(data->res->y / (double)data->res->x) *
 		tan((data->cam->fov * M_PI / (double)180) / 2);
 	}
@@ -130,10 +132,8 @@ void	get_prime_ray(t_data *data, double pix_y, double pix_x,
 	get_film_coord(data, film_coord);
 	y = get_sp_y(data, pix_y, film_coord[1]);
 	x = get_sp_x(data, pix_x, film_coord[0]);
-	len = sqrt(pow((x - data->cam->x), 2) +
-	pow(y - data->cam->y, 2) +
-	pow(data->cam->vec_z, 2));
-	prime_ray[0] = (x - data->cam->x) / len;
-	prime_ray[1] = (y - data->cam->y) / len;
-	prime_ray[2] = data->cam->vec_z / len;
+	prime_ray[0] = (x - data->cam->x);
+	prime_ray[1] = (y - data->cam->y);
+	prime_ray[2] = data->cam->vec_z;
+	normalize(&prime_ray[0], &prime_ray[1], &prime_ray[2]);
 }

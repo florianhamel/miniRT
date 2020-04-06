@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/04/06 11:29:25 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/06 17:43:51 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,11 @@ scene.c
 int					scene_intersect(t_data *data, double prime_ray[3]);
 double				sp_intersect(t_data *data, double prime_ray[3]);
 void				print_scene(int **pix, t_data *data);
-double				get_lgt_coef(t_data *data, double intersec[3]);
+double				sp_f_ratio(t_data *data, double intersect[3]);
+
+/*
+scene_utils.c
+*/
+double				dot_product(double normal[3], double vec[3]);
 
 #endif
