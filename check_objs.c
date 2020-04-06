@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 12:51:32 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/28 15:24:46 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/01 17:38:41 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	check_c(char *line)
 		i++;
 	if (ft_atoi(&line[i]) < 0 || 180 < ft_atoi(&line[i]))
 		return (-1);
-	while ('0' <= line[i] && line[i] <= '8')
+	while ('0' <= line[i] && line[i] <= '9')
 			i++;
 	while (line[i] == 32 || line[i] == 9)
 		i++;

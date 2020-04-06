@@ -6,14 +6,14 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 14:02:01 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/29 12:13:36 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/03 14:27:05 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include <stdio.h>
 
-int	parsing(int fd, t_data **data)
+int	parsing(int fd, t_data *data)
 {
 	char	*line;
 	int		type;
@@ -40,8 +40,8 @@ int	parsing(int fd, t_data **data)
 			if (check_format(type, line) == -1)
 				return (-1);
 		}
-		// if (get_data(&test, line, type, &data) == -1)
-		// 	return (error_function(7));
+		if (line [0] != '\0' && get_data(data, type, line) == -1)
+			return (-1);
 		if (ret == 0)
 				break ;
 		free(line);
@@ -122,5 +122,7 @@ int	error_function(int err)
 		printf("Error 7\nA problem was encountered while initializing the data.\n");
 	if (err == 8)
 		printf("Error 8\nA problem was encountered while extracting the data.\n");
+	if (err == 9)
+		printf("Error 9\nA problem was encountered with ray tracer.\n");
 	return (-1);
 }

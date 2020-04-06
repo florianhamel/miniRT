@@ -6,12 +6,13 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 17:54:37 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/28 23:09:22 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/01 10:44:25 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include <fcntl.h>
+#include <unistd.h>
 #include <stdio.h>
 
 int	mini_rt(char *file)
@@ -24,5 +25,8 @@ int	mini_rt(char *file)
 		return (error_function(7));
 	if (parsing(fd, data) == -1)
 		return (-1);
+	printf("height = %lf\n", data->cy->height);
+	printf("res x = %d\n", data->res->x);
 	close(fd);
+	return (0);
 }
