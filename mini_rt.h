@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/04/06 17:43:51 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/07 22:54:51 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ typedef	struct		s_amb
 {
 	int				id;
 	double			power;
-	int				color;
+	int				r;
+	int				g;
+	int				b;
 }					t_amb;
 
 typedef	struct		s_cam
@@ -66,7 +68,9 @@ typedef	struct		s_lgt
 	double			y;
 	double			z;
 	double			power;
-	int				color;
+	int				r;
+	int				g;
+	int				b;
 	struct s_lgt	*next;
 }					t_lgt;
 
@@ -79,7 +83,9 @@ typedef	struct		s_pl
 	double 			vec_x;
 	double			vec_y;
 	double			vec_z;
-	int				color;
+	int				r;
+	int				g;
+	int				b;
 	struct s_pl		*next;
 }					t_pl;
 
@@ -90,7 +96,9 @@ typedef	struct		s_sp
 	double			y;
 	double			z;
 	double			diam;
-	int				color;
+	int				r;
+	int				g;
+	int				b;
 	struct s_sp		*next;
 }					t_sp;
 
@@ -105,7 +113,9 @@ typedef	struct		s_sq
 	double			vec_y;
 	double			vec_z;
 	double			height;
-	int				color;
+	int				r;
+	int				g;
+	int				b;
 	struct s_sq		*next;
 }					t_sq;
 
@@ -120,7 +130,9 @@ typedef	struct		s_cy
 	double			vec_z;
 	double			diam;
 	double			height;
-	int				color;
+	int				r;
+	int				g;
+	int				b;
 	struct s_cy		*next;
 }					t_cy;
 
@@ -136,7 +148,9 @@ typedef	struct		s_tr
 	double			x_p3;
 	double			y_p3;
 	double			z_p3;
-	int				color;
+	int				r;
+	int				g;
+	int				b;
 	struct s_tr		*next;
 }					t_tr;
 
@@ -152,6 +166,23 @@ typedef	struct		s_data
 	t_cy			*cy;
 	t_tr			*tr;
 }					t_data;
+
+typedef	struct		s_vec
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_vec;
+
+typedef	struct		s_obj
+{
+	int				id;
+	double			x;
+	double			y;
+	double			z;
+	double			len;
+	void			*ptr;
+}					t_obj;
 
 /*
 mini_rt.c
@@ -197,7 +228,7 @@ data_utils.c
 int					nb_len(char *str);
 double				floatoi(char *line);
 double				get_xyz(int coord, char *line);
-unsigned int		get_color(char *line);
+int					get_color(int coord, char *line);
 
 /*
 data_utils2.c
@@ -238,27 +269,49 @@ int					check_current(int type, t_test *test);
 /*
 ray_tracer.c
 */
-int					**init_pix(t_data *data);
 int					ray_tracer(t_data *data);
-int					get_pix(t_data *data, int pix_y, int pix_x);
-void				get_film_coord(t_data *data, double film_coord[3]);
-double				get_sp_y(t_data *data, int pix_y, double film_y);
-double				get_sp_x(t_data *data, int pix_x, double film_x);
-void				get_prime_ray(t_data *data, double x, double y,
-					double prime_ray[3]);
-void				normalize(double *x, double *y, double *z);
+int					**init_tab_pix(int res_y, int res_x);
+int					get_pix(t_data *data, int y, int x);
+int					color_obj(t_obj obj, t_data *data);
+double				f_ratio(t_obj obj, t_data *data);
+double				f_ratio_sp(t_obj obj, t_data *data);
+t_vec				get_film(t_data *data);
+t_vec				get_cam_ray(t_data *data, t_vec film, int y, int x);
+double				get_x_cam(t_data *data, t_vec film, int x);
+double				get_y_cam(t_data *data, t_vec film, int y);
+
+/*
+ray_tracer_utils.c
+*/
+void				normalize(t_vec *vec);
+double				dot_product(t_vec vec_1, t_vec vec_2);
+void				init_obj(t_obj *obj);
+void				fill_obj(t_data *data, t_obj *obj, double t, t_vec cam_ray);
 
 /*
 scene.c
 */
-int					scene_intersect(t_data *data, double prime_ray[3]);
-double				sp_intersect(t_data *data, double prime_ray[3]);
-void				print_scene(int **pix, t_data *data);
-double				sp_f_ratio(t_data *data, double intersect[3]);
+t_obj				closest_obj(t_data *data, t_vec cam_ray);
+t_obj				closest_sp(t_data *data, t_vec cam_ray);
+void				print_scene(t_data *data, int **pix);
 
 /*
-scene_utils.c
+intersections.c
 */
-double				dot_product(double normal[3], double vec[3]);
+double				sp_intersection(t_vec cam_ray, t_sp *sp, t_cam *cam);
+
+/*
+intersections_utils.c
+*/
+double				get_root(double a, double b, double c, double delta);
+
+/*
+color.c
+*/
+int					color_pl(t_obj obj, double ratio);
+int					color_sp(t_obj obj, double ratio);
+int					color_sq(t_obj obj, double ratio);
+int					color_cy(t_obj obj, double ratio);
+int					color_tr(t_obj obj, double ratio);
 
 #endif

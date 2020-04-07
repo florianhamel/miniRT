@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 20:23:19 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/30 22:33:39 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/07 22:20:40 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,48 @@ double			get_xyz(int coord, char *line)
 	return (floatoi(&line[i]));
 }
 
-unsigned int	get_color(char *line)
+int	get_color(int coord, char *line)
 {
-	unsigned int	color;
-	int				rgb;
-	int				nb;
-	int				i;
+	int	i;
 
-	color = 0;
-	rgb = 0;
 	i = 0;
-	while (rgb < 3)
+	if (coord == 1)
 	{
-		nb = ft_atoi(&line[i]);
-		color += pow(16, (2 - rgb) * 2 + 1) * (nb / 16);
-		color += pow(16, (2 - rgb) * 2) * (nb - (nb / 16 * 16));
 		while ('0' <= line[i] && line[i] <= '5')
 			i++;
 		i++;
-		rgb++;
 	}
-	return (color);
+	else if (coord == 2)
+	{
+		while ('0' <= line[i] && line[i] <= '5')
+			i++;
+		i++;
+		while ('0' <= line[i] && line[i] <= '5')
+			i++;
+		i++;
+	}
+	return (ft_atoi(&line[i]));
 }
+
+// unsigned int	get_color(char *line)
+// {
+// 	unsigned int	color;
+// 	int				rgb;
+// 	int				nb;
+// 	int				i;
+
+// 	color = 0;
+// 	rgb = 0;
+// 	i = 0;
+// 	while (rgb < 3)
+// 	{
+// 		nb = ft_atoi(&line[i]);
+// 		color += pow(16, (2 - rgb) * 2 + 1) * (nb / 16);
+// 		color += pow(16, (2 - rgb) * 2) * (nb - (nb / 16 * 16));
+// 		while ('0' <= line[i] && line[i] <= '5')
+// 			i++;
+// 		i++;
+// 		rgb++;
+// 	}
+// 	return (color);
+// }

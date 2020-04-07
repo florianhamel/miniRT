@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 20:08:49 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/03 14:20:27 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/07 22:22:52 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ int	get_amb(t_data *data, char *line)
 	amb->power = floatoi(&line[i]);
 	i += skip_float(&line[i]);
 	i += skip_ws(&line[i]);
-	amb->color = get_color(&line[i]);
+	amb->r = get_color(0, &line[i]);
+	amb->g = get_color(1, &line[i]);
+	amb->b = get_color(2, &line[i]);
 	data->amb = amb;
 	return (0);
 }
@@ -138,7 +140,9 @@ int	get_lgt(t_data *data, char *line)
 	lgt->power = floatoi(&line[i]);
 	i += skip_float(&line[i]);
 	i += skip_ws(&line[i]);
-	lgt->color = get_color(&line[i]);
+	lgt->r = get_color(0, &line[i]);
+	lgt->g = get_color(1, &line[i]);
+	lgt->b = get_color(2, &line[i]);
 	lgt->next = NULL;
 	current = data->lgt;
 	if (!data->lgt)
@@ -172,7 +176,9 @@ int	get_pl(t_data *data, char *line)
 	pl->vec_z = get_xyz(2, &line[i]);
 	i += skip_coord(&line[i]);
 	i += skip_ws(&line[i]);
-	pl->color = get_color(&line[i]);
+	pl->r = get_color(0, &line[i]);
+	pl->g = get_color(1, &line[i]);
+	pl->b = get_color(2, &line[i]);
 	pl->next = NULL;
 	current = data->pl;
 	if (!data->pl)
@@ -204,7 +210,9 @@ int	get_sp(t_data *data, char *line)
 	sp->diam = floatoi(&line[i]);
 	i += skip_float(&line[i]);
 	i += skip_ws(&line[i]);
-	sp->color = get_color(&line[i]);
+	sp->r = get_color(0, &line[i]);
+	sp->g = get_color(1, &line[i]);
+	sp->b = get_color(2, &line[i]);
 	sp->next = NULL;
 	current = data->sp;
 	if (!data->sp)
@@ -241,7 +249,9 @@ int	get_sq(t_data *data, char *line)
 	sq->height = floatoi(&line[i]);
 	i += skip_float(&line[i]);
 	i += skip_ws(&line[i]);
-	sq->color = get_color(&line[i]);
+	sq->r = get_color(0, &line[i]);
+	sq->g = get_color(1, &line[i]);
+	sq->b = get_color(2, &line[i]);
 	sq->next = NULL;
 	current = data->sq;
 	if (!data->sq)
@@ -281,7 +291,9 @@ int	get_cy(t_data *data, char *line)
 	cy->height = floatoi(&line[i]);
 	i += skip_float(&line[i]);
 	i += skip_ws(&line[i]);
-	cy->color = get_color(&line[i]);
+	cy->r = get_color(0, &line[i]);
+	cy->g = get_color(1, &line[i]);
+	cy->b = get_color(2, &line[i]);
 	cy->next = NULL;
 	current = data->cy;
 	if (!data->cy)
@@ -320,7 +332,9 @@ int	get_tr(t_data *data, char *line)
 	tr->z_p3 = get_xyz(2, &line[i]);
 	i += skip_coord(&line[i]);
 	i += skip_ws(&line[i]);
-	tr->color = get_color(&line[i]);
+	tr->r = get_color(0, &line[i]);
+	tr->g = get_color(1, &line[i]);
+	tr->b = get_color(2, &line[i]);
 	tr->next = NULL;
 	current = data->tr;
 	if (!data->tr)
