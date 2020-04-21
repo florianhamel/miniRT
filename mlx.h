@@ -131,15 +131,19 @@ int	mlx_destroy_image(void *mlx_ptr, void *img_ptr);
 
 int	mlx_hook(void *win_ptr, int x_event, int x_mask,
                  int (*funct)(), void *param);
+// x_event = numéro de l'event (voir internet) 2 quand appuyer touche
+// x_mask = mettre 0
+// voir keycode 53 escape
+
 
 int     mlx_mouse_hide();
 int     mlx_mouse_show();
 int     mlx_mouse_move(void *win_ptr, int x, int y);
 int     mlx_mouse_get_pos(void *win_ptr, int *x, int *y);
 
-int	mlx_do_key_autorepeatoff(void *mlx_ptr);
-int	mlx_do_key_autorepeaton(void *mlx_ptr);
-int	mlx_do_sync(void *mlx_ptr);
+int		mlx_do_key_autorepeatoff(void *mlx_ptr);
+int		mlx_do_key_autorepeaton(void *mlx_ptr);
+int		mlx_do_sync(void *mlx_ptr);
 
 #define MLX_SYNC_IMAGE_WRITABLE		1
 #define MLX_SYNC_WIN_FLUSH_CMD		2

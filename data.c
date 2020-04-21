@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 20:08:49 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/07 22:22:52 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/12 17:40:16 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,19 +317,19 @@ int	get_tr(t_data *data, char *line)
 		return (-1);
 	tr->id = 8;
 	i = skip_ws(line);
-	tr->x_p1 = get_xyz(0, &line[i]);
-	tr->y_p1 = get_xyz(1, &line[i]);
-	tr->z_p1 = get_xyz(2, &line[i]);
+	tr->x_a = get_xyz(0, &line[i]);
+	tr->y_a = get_xyz(1, &line[i]);
+	tr->z_a = get_xyz(2, &line[i]);
 	i += skip_coord(&line[i]);
 	i += skip_ws(&line[i]);
-	tr->x_p2 = get_xyz(0, &line[i]);
-	tr->y_p2 = get_xyz(1, &line[i]);
-	tr->z_p2 = get_xyz(2, &line[i]);
+	tr->x_b = get_xyz(0, &line[i]);
+	tr->y_b = get_xyz(1, &line[i]);
+	tr->z_b = get_xyz(2, &line[i]);
 	i += skip_coord(&line[i]);
 	i += skip_ws(&line[i]);
-	tr->x_p3 = get_xyz(0, &line[i]);
-	tr->y_p3 = get_xyz(1, &line[i]);
-	tr->z_p3 = get_xyz(2, &line[i]);
+	tr->x_c = get_xyz(0, &line[i]);
+	tr->y_c = get_xyz(1, &line[i]);
+	tr->z_c = get_xyz(2, &line[i]);
 	i += skip_coord(&line[i]);
 	i += skip_ws(&line[i]);
 	tr->r = get_color(0, &line[i]);

@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:13:56 by florianhame       #+#    #+#             */
-/*   Updated: 2020/03/29 12:22:55 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/10 13:15:21 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	check_color(char *line)
 		nb = ft_atoi(&line[i]);
 		if (nb < 0 || 255 < nb)
 			return (-1);
-		while ('0' <= line[i] && line[i] <= '5')
+		while ('0' <= line[i] && line[i] <= '9')
 			i++;
 		if (col != 2 && line[i++] != ',')
 			return (-1);

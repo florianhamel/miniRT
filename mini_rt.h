@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/04/07 22:54:51 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/14 16:30:33 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,15 +139,15 @@ typedef	struct		s_cy
 typedef	struct		s_tr
 {
 	int				id;
-	double			x_p1;
-	double			y_p1;
-	double			z_p1;
-	double			x_p2;
-	double			y_p2;
-	double			z_p2;
-	double			x_p3;
-	double			y_p3;
-	double			z_p3;
+	double			x_a;
+	double			y_a;
+	double			z_a;
+	double			x_b;
+	double			y_b;
+	double			z_b;
+	double			x_c;
+	double			y_c;
+	double			z_c;
 	int				r;
 	int				g;
 	int				b;
@@ -183,6 +183,26 @@ typedef	struct		s_obj
 	double			len;
 	void			*ptr;
 }					t_obj;
+
+typedef	struct		s_root
+{
+	double			t1;
+	double			t2;	
+}					t_root;
+
+typedef	struct		s_mtx4
+{
+	t_vec			r;
+	t_vec			u;
+	t_vec			f;
+	t_vec			c;
+}					t_mtx4;
+
+typedef	struct		s_win
+{
+	void			*mlx;
+	void			*win;
+}					t_win;
 
 /*
 mini_rt.c
@@ -273,37 +293,64 @@ int					ray_tracer(t_data *data);
 int					**init_tab_pix(int res_y, int res_x);
 int					get_pix(t_data *data, int y, int x);
 int					color_obj(t_obj obj, t_data *data);
-double				f_ratio(t_obj obj, t_data *data);
-double				f_ratio_sp(t_obj obj, t_data *data);
 t_vec				get_film(t_data *data);
 t_vec				get_cam_ray(t_data *data, t_vec film, int y, int x);
 double				get_x_cam(t_data *data, t_vec film, int x);
 double				get_y_cam(t_data *data, t_vec film, int y);
+t_mtx4				mtx4_world(t_data *data, t_vec film);
+t_vec				mtx4_p(t_mtx4 m, t_vec p);
 
 /*
 ray_tracer_utils.c
 */
 void				normalize(t_vec *vec);
-double				dot_product(t_vec vec_1, t_vec vec_2);
+double				dot_p(t_vec a, t_vec b);
+t_vec				cross_p(t_vec a, t_vec b);
 void				init_obj(t_obj *obj);
 void				fill_obj(t_data *data, t_obj *obj, double t, t_vec cam_ray);
+
 
 /*
 scene.c
 */
 t_obj				closest_obj(t_data *data, t_vec cam_ray);
 t_obj				closest_sp(t_data *data, t_vec cam_ray);
+t_obj				closest_pl(t_data *data, t_vec cam_ray);
+t_obj				closest_sq(t_data *data, t_vec cam_ray);
+t_obj				closest_cy(t_data *data, t_vec cam_ray);
+t_obj				closest_tr(t_data *data, t_vec cam_ray);
 void				print_scene(t_data *data, int **pix);
 
 /*
 intersections.c
 */
+double				pl_intersection(t_vec cam_ray, t_pl *pl, t_cam *cam);
 double				sp_intersection(t_vec cam_ray, t_sp *sp, t_cam *cam);
+double				sq_intersection(t_vec cam_ray, t_sq *sq, t_cam *cam);
+double				cy_intersection(t_vec cam_ray, t_cy *sq, t_cam *cam);
+double				tr_intersection(t_vec cam_ray, t_tr *tr, t_cam *cam);
 
 /*
 intersections_utils.c
 */
-double				get_root(double a, double b, double c, double delta);
+double				sp_roots(double a, double b, double c, double delta);
+int					sq_base(t_vec n, t_vec m, t_sq *sq);
+int					sq_corners(t_vec u, t_vec v, t_vec m, t_sq *sq);
+int					sq_final(t_vec a, t_vec b, t_vec d, t_vec m);
+void				cy_fill_tab(t_vec tab[3], t_cy *cy, t_cam *cam);
+double				cy_roots(t_vec tab[3], t_vec cam_ray, t_cy *cy, t_cam *cam);
+double				cy_best_root(t_root t, t_cy *cy, t_cam *cam, t_vec cam_ray);
+
+/*
+facing_ratio.c
+*/
+double				f_ratio(t_obj obj, t_data *data);
+double				f_ratio_pl(t_obj obj, t_data *data);
+double				f_ratio_sp(t_obj obj, t_data *data);
+double				f_ratio_sq(t_obj obj, t_data *data);
+double				f_ratio_cy(t_obj obj, t_data *data);
+double				f_ratio_tr(t_obj obj, t_data *data);
+
 
 /*
 color.c

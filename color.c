@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 22:27:04 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/07 23:06:06 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/08 15:35:09 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	color_sq(t_obj obj, double ratio)
 	return (color);
 }
 
-int	color_cy(t_data *data, t_obj obj, double ratio)
+int	color_cy(t_obj obj, double ratio)
 {
 	int	color;
 	int	r;

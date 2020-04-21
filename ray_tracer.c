@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 10:12:44 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/07 23:02:08 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/04/14 00:55:59 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		color_obj(t_obj obj, t_data *data)
 	int		back_color;
 	double	ratio;
 
-	back_color = 0;
+	back_color = 16776960;
 	ratio = fmax(0, f_ratio(obj, data));
 	if (obj.id == 4)
 		return (color_pl(obj, ratio));
@@ -92,39 +92,6 @@ int		color_obj(t_obj obj, t_data *data)
 	if (obj.id == 8)
 		return (color_tr(obj, ratio));
 	return (back_color);
-}
-
-double	f_ratio(t_obj obj, t_data *data)
-{
-	// if (obj.id == 4)
-	// 	return (f_ratio_pl(obj, data));
-	if (obj.id == 5)
-		return (f_ratio_sp(obj, data));
-	// if (obj.id == 6)
-	// 	return (f_ratio_sq(obj, data));
-	// if (obj.id == 7)
-	// 	return (f_ratio_cy(obj, data));
-	// if (obj.id == 8)
-	// 	return (f_ratio_tr(obj, data));
-	return (0);
-}
-
-double	f_ratio_sp(t_obj obj, t_data *data)
-{
-	t_vec	normal;
-	t_vec	vec;
-	double	f_ratio;
-
-	normal.x = obj.x - ((t_sp *)(obj.ptr))->x;
-	normal.y = obj.y - ((t_sp *)(obj.ptr))->y;
-	normal.z = obj.z - ((t_sp *)(obj.ptr))->z;
-	normalize(&normal);
-	vec.x = data->lgt->x - obj.x;
-	vec.y = data->lgt->y - obj.y;
-	vec.z = data->lgt->z - obj.z;
-	normalize(&vec);
-	f_ratio = dot_product(normal, vec);
-	return (f_ratio);
 }
 
 t_vec	get_film(t_data *data)
@@ -144,18 +111,19 @@ t_vec	get_film(t_data *data)
 
 t_vec	get_cam_ray(t_data *data, t_vec film, int y, int x)
 {
-	double	x_cam;
-	double	y_cam;
+	t_vec	pix;
 	t_vec	cam_ray;
+	t_mtx4	m;
 
-	x_cam = get_x_cam(data, film, x);
-	y_cam = get_y_cam(data, film, y);
-	cam_ray.x = x_cam - data->cam->x;
-	cam_ray.y = y_cam - data->cam->y;
-	cam_ray.z = film.z - data->cam->z;
+	pix.x = get_x_cam(data, film, x);
+	pix.y = get_y_cam(data, film, y);
+	pix.z = -1;
+	m = mtx4_world(data, film);
+	pix = mtx4_p(m, pix);
+	cam_ray.x = pix.x - data->cam->x;
+	cam_ray.y = pix.y - data->cam->y;
+	cam_ray.z = pix.z - data->cam->z;
 	normalize(&cam_ray);
-	// printf("x = %lf\ny = %lf\nz = %lf\n", x_cam, y_cam, film.z);
-	// printf("cam_ray.x = %lf\ncam_ray.y = %lf\ncam_ray.z = %lf\n\n", cam_ray.x, cam_ray.y, cam_ray.z);
 	return (cam_ray);
 }
 
@@ -168,9 +136,8 @@ double	get_y_cam(t_data *data, t_vec film, int y)
 
 	y_ndc = (y + 0.5) / data->res->y;
 	y_screen = 1 - (2 * y_ndc); 
-	ratio = (data->res->y > data->res->x ? (data->res->y / data->res->x) : 1);
+	ratio = (data->res->y > data->res->x ? (data->res->y / (double)data->res->x) : 1);
 	y_cam = y_screen * ratio * tan(data->cam->fov * (M_PI / 180) / 2);
-	y_cam += film.y;
 	return (y_cam);
 }
 
@@ -180,11 +147,50 @@ double	get_x_cam(t_data *data, t_vec film, int x)
 	double	x_screen;
 	double	ratio;
 	double	x_cam;
+	t_mtx4	m;
 
-	x_ndc = (x + 0.5) / data->res->y;
+	x_ndc = (x + 0.5) / data->res->x;
 	x_screen = (2 * x_ndc) - 1; 
-	ratio = (data->res->x > data->res->y ? data->res->x / data->res->y : 1);
+	ratio = (data->res->x > data->res->y ? (data->res->x / (double)data->res->y) : 1);
 	x_cam = x_screen * ratio * tan(data->cam->fov * (M_PI / 180) / 2);
-	x_cam += film.x;
 	return (x_cam);
+}
+
+t_mtx4	mtx4_world(t_data *data, t_vec film)
+{
+	t_mtx4	m;
+	t_vec	e;
+
+	m.c.x = data->cam->x;
+	m.c.y = data->cam->y;
+	m.c.z = data->cam->z;
+	m.f.x = data->cam->x - film.x;
+	m.f.y = data->cam->y - film.y;
+	m.f.z = data->cam->z - film.z;
+	normalize(&(m.f));
+	if (data->cam->vec_x != 0 && fabs(data->cam->vec_y) != 1 && data->cam->vec_z != 0)
+	{
+		e.x = 0;
+		e.y = 1;
+		e.z = 0;
+	}
+	else
+	{
+		e.x = 0;
+		e.y = 0;
+		e.z = -1;
+	}
+	m.r = cross_p(e, m.f);
+	m.u = cross_p(m.f, m.r);
+	return (m);
+}
+
+t_vec	mtx4_p(t_mtx4 m, t_vec p)
+{
+	t_vec	pix;
+
+	pix.x = m.c.x + (p.z * m.f.x) + (p.y * m.u.x) + (p.x * m.r.x);
+	pix.y = m.c.y + (p.z * m.f.y) + (p.y * m.u.y) + (p.x * m.r.y);
+	pix.z = m.c.z + (p.z * m.f.z) + (p.y * m.u.z) + (p.x * m.r.z);
+	return (pix);
 }
