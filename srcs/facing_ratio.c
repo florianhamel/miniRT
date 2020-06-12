@@ -6,77 +6,80 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 16:23:40 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/26 11:55:20 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/05/26 12:29:31 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include <stdio.h>
 
-double	f_ratio(t_obj obj, t_lgt *lgt)
+double	f_ratio(t_obj obj, t_lgt *lgt, t_cam *c)
 {
 	if (obj.id == 4)
-		return (f_ratio_pl(obj, lgt));
+		return (f_ratio_pl(obj, lgt, c));
 	if (obj.id == 5)
-		return (f_ratio_sp(obj, lgt));
+		return (f_ratio_sp(obj, lgt, c));
 	if (obj.id == 6)
-		return (f_ratio_sq(obj, lgt));
+		return (f_ratio_sq(obj, lgt, c));
 	if (obj.id == 7)
-		return (f_ratio_cy(obj, lgt));
+		return (f_ratio_cy(obj, lgt, c));
 	if (obj.id == 8)
-		return (f_ratio_tr(obj, lgt));
+		return (f_ratio_tr(obj, lgt, c));
 	return (0);
 }
 
-double	f_ratio_pl(t_obj obj, t_lgt *lgt)
+double	f_ratio_pl(t_obj obj, t_lgt *lgt, t_cam *c)
 {
-	t_vec	normal;
 	t_vec	vec;
+	t_vec	n;
 
 	vec.x = lgt->x - obj.x;
 	vec.y = lgt->y - obj.y;
 	vec.z = lgt->z - obj.z;
 	normalize(&vec);
-	normal.x = -((t_pl *)(obj.ptr))->vec_x;
-	normal.y = -((t_pl *)(obj.ptr))->vec_y;
-	normal.z = -((t_pl *)(obj.ptr))->vec_z;
-	normalize(&normal);
-	return (dot_p(normal, vec));
+	n.x = -((t_pl *)(obj.ptr))->vec_x;
+	n.y = -((t_pl *)(obj.ptr))->vec_y;
+	n.z = -((t_pl *)(obj.ptr))->vec_z;
+	normalize(&n);
+	n = get_right_n(n, c, obj);
+	return (dot_p(n, vec));
 }
 
-double	f_ratio_sp(t_obj obj, t_lgt *lgt)
+double	f_ratio_sp(t_obj obj, t_lgt *lgt, t_cam *c)
 {
-	t_vec	normal;
 	t_vec	vec;
+	t_vec	n;
 
 	vec.x = lgt->x - obj.x;
 	vec.y = lgt->y - obj.y;
 	vec.z = lgt->z - obj.z;
 	normalize(&vec);
-	normal.x = obj.x - ((t_sp *)(obj.ptr))->x;
-	normal.y = obj.y - ((t_sp *)(obj.ptr))->y;
-	normal.z = obj.z - ((t_sp *)(obj.ptr))->z;
-	normalize(&normal);
-	return (dot_p(normal, vec));
+	n.x = obj.x - ((t_sp *)(obj.ptr))->x;
+	n.y = obj.y - ((t_sp *)(obj.ptr))->y;
+	n.z = obj.z - ((t_sp *)(obj.ptr))->z;
+	normalize(&n);
+	n = get_right_n(n, c, obj);
+	return (dot_p(n, vec));
 }
 
-double	f_ratio_sq(t_obj obj, t_lgt *lgt)
+double	f_ratio_sq(t_obj obj, t_lgt *lgt, t_cam *c)
 {
-	t_vec	normal;
 	t_vec	vec;
+	t_vec	n;
 
 	vec.x = lgt->x - obj.x;
 	vec.y = lgt->y - obj.y;
 	vec.z = lgt->z - obj.z;
 	normalize(&vec);
-	normal.x = -((t_sq *)(obj.ptr))->vec_x;
-	normal.y = -((t_sq *)(obj.ptr))->vec_y;
-	normal.z = -((t_sq *)(obj.ptr))->vec_z;
-	normalize(&normal);
-	return (dot_p(normal, vec));
+	n.x = -((t_sq *)(obj.ptr))->vec_x;
+	n.y = -((t_sq *)(obj.ptr))->vec_y;
+	n.z = -((t_sq *)(obj.ptr))->vec_z;
+	normalize(&n);
+	n = get_right_n(n, c, obj);
+	return (dot_p(n, vec));
 }
 
-double	f_ratio_cy(t_obj obj, t_lgt *lgt)
+double	f_ratio_cy(t_obj obj, t_lgt *lgt, t_cam *c)
 {	
 	t_vec	vec;
 	t_vec	op;
@@ -103,11 +106,11 @@ double	f_ratio_cy(t_obj obj, t_lgt *lgt)
 	n.y = obj.y - (((t_cy *)(obj.ptr))->y + (dot_p(op, u) > 0 ? (t * u.y) : -(t * u.y)));
 	n.z = obj.z - (((t_cy *)(obj.ptr))->z + (dot_p(op, u) > 0 ? (t * u.z) : -(t * u.z)));
 	normalize(&n);
-	// printf("x = %lf | y = %lf | z = %lf\n", n.x, n.y, n.z);
+	n = get_right_n(n, c, obj);
 	return (dot_p(n, vec));
 }
 
-double	f_ratio_tr(t_obj obj, t_lgt *lgt)
+double	f_ratio_tr(t_obj obj, t_lgt *lgt, t_cam *c)
 {
 	t_vec	vec;
 	t_vec	ab;
@@ -126,5 +129,6 @@ double	f_ratio_tr(t_obj obj, t_lgt *lgt)
 	ac.z = ((t_tr *)(obj.ptr))->z_c - ((t_tr *)(obj.ptr))->z_a;
 	n = cross_p(ab, ac);
 	normalize(&n);
+	n = get_right_n(n, c, obj);
 	return (dot_p(n, vec));
 }

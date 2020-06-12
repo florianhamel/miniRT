@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 14:02:01 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/25 23:43:08 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/05/25 15:51:47 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@
 int	rt_file(int fd, t_data *data)
 {
 	char	*line;
+	t_test	test;
 	int		id;
 	int		ret;
 
 	line = NULL;
+	init_test(&test);
 	id = -1;
 	while ((ret = get_next_line(fd, &line)) > -1)
 	{
-		if (parsing(line) == -1)
+		if (parsing(line, &test) == -1)
 			return (-1);
 		if (line [0] != '\0' && get_data(data, get_id(line), line) == -1)
 			return (-1);

@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 16:57:47 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/25 22:44:03 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/05/26 15:28:26 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	cy_fill_tab(t_vec tab[3], t_cy *cy, t_vec cl)
 	tab[2].y = cy->y;
 	tab[2].z = cy->z;
 }
-
 
 double	cy_roots(t_vec tab[3], t_vec ray, t_cy *cy, t_vec cl)
 {

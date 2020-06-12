@@ -6,51 +6,76 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 16:20:25 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/26 12:13:17 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/06/12 11:23:36 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include <stdio.h>
 
+int		same_point(t_vec lgt_vec, t_vec cl, t_obj ref, double t)
+{
+	t_vec tmp;
+	
+	tmp.x = cl.x + t * lgt_vec.x;
+	tmp.y = cl.y + t * lgt_vec.y;
+	tmp.z = cl.z + t * lgt_vec.z;
+	if (tmp.x - SAME_POINT < ref.x && ref.x < tmp.x + SAME_POINT &&
+	tmp.y - SAME_POINT < ref.y && ref.y < tmp.y + SAME_POINT &&
+	tmp.z - SAME_POINT < ref.z && ref.z < tmp.z + SAME_POINT)
+		return (1);
+	return (0);
+}
+
 long double	any_intersection(t_data *data, t_vec lgt_vec, t_vec cl, t_obj ref)
 {
 	t_obj		obj;
+	long double len_vec;
 	long double	t;
 
 	init_obj(&obj);
+	len_vec = sqrt(pow(lgt_vec.x, 2) + pow(lgt_vec.y, 2) + pow(lgt_vec.z, 2));
+	normalize(&lgt_vec);
 	obj.ptr = data->pl;
 	while (obj.ptr != NULL)
 	{
-		if (obj.ptr != ref.ptr && (t = pl_intersection(lgt_vec, (t_pl *)(obj.ptr), cl)) > 0)
+		if (obj.ptr != ref.ptr && (t = pl_intersection(lgt_vec, (t_pl *)(obj.ptr), cl)) > 0
+		&& t < len_vec)
 			return (t);
 		obj.ptr = ((t_pl *)(obj.ptr))->next;
 	}
 	obj.ptr = data->sp;
 	while (obj.ptr != NULL)
 	{
-		if (obj.ptr != ref.ptr && (t = sp_intersection(lgt_vec, (t_sp *)(obj.ptr), cl)) > 0)
+		if (obj.ptr != ref.ptr && (t = sp_intersection(lgt_vec, (t_sp *)(obj.ptr), cl)) > 0
+		&& t < len_vec)
 			return (t);
 		obj.ptr = ((t_sp *)(obj.ptr))->next;
 	}
 	obj.ptr = data->sq;
 	while (obj.ptr != NULL )
 	{
-		if (obj.ptr != ref.ptr && (t = sq_intersection(lgt_vec, (t_sq *)(obj.ptr), cl)) > 0)
+		if (obj.ptr != ref.ptr && (t = sq_intersection(lgt_vec, (t_sq *)(obj.ptr), cl)) > 0
+		&& t < len_vec)
 			return (t);
 		obj.ptr = ((t_sq *)(obj.ptr))->next;
 	}
 	obj.ptr = data->cy;
 	while (obj.ptr != NULL)
 	{
-		if (obj.ptr != ref.ptr && (t = cy_intersection(lgt_vec, (t_cy *)(obj.ptr), cl)) > 0)
+		// if ((t = cy_intersection(lgt_vec, (t_cy *)(obj.ptr), cl)) > 0
+		// && !same_point(lgt_vec, cl, ref, t))
+		// 	return (t);
+		if ((t = cy_intersection(lgt_vec, (t_cy *)(obj.ptr), cl)) > 0 && t < len_vec
+		&& !same_point(lgt_vec, cl, ref, t))
 			return (t);
 		obj.ptr = ((t_cy *)(obj.ptr))->next;
 	}
 	obj.ptr = data->tr;
 	while (obj.ptr != NULL)
 	{
-		if (obj.ptr != ref.ptr && (t = tr_intersection(lgt_vec, (t_tr *)(obj.ptr), cl)) > 0)
+		if (obj.ptr != ref.ptr && (t = tr_intersection(lgt_vec, (t_tr *)(obj.ptr), cl)) > 0
+		&& t < len_vec)
 			return (t);
 		obj.ptr = ((t_tr *)(obj.ptr))->next;
 	}
@@ -60,24 +85,25 @@ long double	any_intersection(t_data *data, t_vec lgt_vec, t_vec cl, t_obj ref)
 int		lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data)
 {
 	t_vec		lgt_vec;
-	long double	len_vec;
 	t_vec		cl;
 	long double	t;
 
-	lgt_vec.x = lgt->x - obj.x;
-	lgt_vec.y = lgt->y - obj.y;
-	lgt_vec.z = lgt->z - obj.z;
-	len_vec = sqrt(pow(lgt_vec.x, 2) + pow(lgt_vec.y, 2) + pow(lgt_vec.z, 2));
-	normalize(&lgt_vec);
-	cl.x = obj.x;
-	cl.y = obj.y;
-	cl.z = obj.z;
+	lgt_vec.x = obj.x - lgt->x;
+	lgt_vec.y = obj.y - lgt->y;
+	lgt_vec.z = obj.z - lgt->z;
+	// lgt_vec.x = lgt->x - obj.x;
+	// lgt_vec.y = lgt->y - obj.y;
+	// lgt_vec.z = lgt->z - obj.z;
+	cl.x = lgt->x;
+	cl.y = lgt->y;
+	cl.z = lgt->z;
+	// cl.x = obj.x;
+	// cl.y = obj.y;
+	// cl.z = obj.z;
 	t = any_intersection(data, lgt_vec, cl, obj);
 	if (t == 0)
 		return (0);
-	if (t < len_vec)
-		return (1);
-	return (0);
+	return (t);
 }
 
 double	pl_intersection(t_vec ray, t_pl *pl, t_vec cl)

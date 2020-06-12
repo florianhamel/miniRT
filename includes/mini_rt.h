@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/04/26 00:17:18 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/06/12 11:25:19 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include <math.h>
+
+#DEFINE SAME_POINT=0.0000000001
 
 typedef	struct		s_test
 {
@@ -207,11 +209,21 @@ typedef	struct		s_mtx4
 	t_vec			c;
 }					t_mtx4;
 
+typedef	struct		s_col
+{
+	int				r;
+	int				g;
+	int				b;
+	int				nb_lgts;
+}					t_col;
+
+
 typedef	struct		s_infos
 {
 	void			*mlx;
 	void			*win;
 }					t_infos;
+
 
 /*
 mini_rt.c
@@ -224,11 +236,6 @@ gnl
 int					get_next_line(int fd, char **line);
 
 /*
-ft_atoi.c
-*/
-// int					ft_atoi(char *str);
-
-/*
 parsing.c
 */
 int					rt_file(int fd, t_data *data);
@@ -239,7 +246,7 @@ int					error_function(int err);
 /*
 parsing2.c
 */
-int					parsing(char *line);
+int					parsing(char *line, t_test *test);
 void				set_cam(t_data *data);
 
 /*
@@ -249,6 +256,14 @@ int					check_nb(char *line);
 int					check_coord(char *line);
 int					check_vec(char *line);
 int					check_color(char *line);
+
+/*
+check_utils2.c
+*/
+int					check_ws(int *i, char *line);
+int					check_obj_color(int i, char *line);
+int					check_l_ratio_color(int i, char *line);
+int					check_cy_nb_color(int i, char *line);
 
 /*
 check_test.c
@@ -381,6 +396,7 @@ void				print_scene(t_data *data, int **pix);
 /*
 intersections.c
 */
+int					same_point(t_vec lgt_vec, t_vec cl, t_obj ref, double t);
 long double			any_intersection(t_data *data, t_vec lgt_vec, t_vec cl, t_obj ref);
 int					lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data);
 double				pl_intersection(t_vec cam_ray, t_pl *pl, t_vec cl);
@@ -403,21 +419,26 @@ double				cy_best_root(t_root t, t_cy *cy, t_vec cl, t_vec ray);
 /*
 facing_ratio.c
 */
-double				f_ratio(t_obj obj, t_lgt *lgt);
-double				f_ratio_pl(t_obj obj, t_lgt *lgt);
-double				f_ratio_sp(t_obj obj, t_lgt *lgt);
-double				f_ratio_sq(t_obj obj, t_lgt *lgt);
-double				f_ratio_cy(t_obj obj, t_lgt *lgt);
-double				f_ratio_tr(t_obj obj, t_lgt *lgt);
+double				f_ratio(t_obj obj, t_lgt *lgt, t_cam *c);
+double				f_ratio_pl(t_obj obj, t_lgt *lgt, t_cam *c);
+double				f_ratio_sp(t_obj obj, t_lgt *lgt, t_cam *c);
+double				f_ratio_sq(t_obj obj, t_lgt *lgt, t_cam *c);
+double				f_ratio_cy(t_obj obj, t_lgt *lgt, t_cam *c);
+double				f_ratio_tr(t_obj obj, t_lgt *lgt, t_cam *c);
+
+/*
+facing_ratio2.c
+*/
+t_vec				get_right_n(t_vec n, t_cam *cam, t_obj obj);
 
 
 /*
 color.c
 */
-int					color_pl(t_data *data, t_obj obj,double ratio);
-int					color_sp(t_data *data, t_obj obj, double ratio);
-int					color_sq(t_data *data, t_obj obj, double ratio);
-int					color_cy(t_data *data, t_obj obj, double ratio);
-int					color_tr(t_data *data, t_obj obj, double ratio);
+int					color_pl(t_obj obj, double ratio, t_col col);
+int					color_sp(t_obj obj, double ratio, t_col col);
+int					color_sq(t_obj obj, double ratio, t_col col);
+int					color_cy(t_obj obj, double ratio, t_col col);
+int					color_tr(t_obj obj, double ratio, t_col col);
 
 #endif

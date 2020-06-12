@@ -6,7 +6,7 @@
 #    By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2020/04/26 16:54:37 by florianhame      ###   ########.fr        #
+#    Updated: 2020/05/26 12:27:25 by florianhame      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,10 @@ D_OBJS		=	objs/
 D_SRCS		=	srcs/
 
 _SRC_		=	check_objs.c \
+				check_objs2.c \
 				check_test.c \
 				check_utils.c \
+				check_utils2.c \
 				color.c \
 				data.c \
 				data_abc.c \
@@ -36,6 +38,7 @@ _SRC_		=	check_objs.c \
 				data_utils.c \
 				data_utils2.c \
 				facing_ratio.c \
+				facing_ratio2.c \
 				get_next_line.c \
 				get_next_line_utils.c \
 				intersections.c \
