@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:44:41 by florianhame       #+#    #+#             */
-/*   Updated: 2020/05/25 15:53:33 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/08/17 12:20:29 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ void	set_cam(t_data *data)
 	cam = data->cam;
 	while (cam->next != NULL)
 		cam = cam->next;
+	data->cam->prev = cam;
 	cam->next = data->cam;
+	cam = data->cam;
 }

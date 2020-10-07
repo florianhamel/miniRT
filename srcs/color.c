@@ -5,115 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/07 22:27:04 by florianhame       #+#    #+#             */
-/*   Updated: 2020/06/10 14:45:30 by florianhame      ###   ########.fr       */
+/*   Created: 2020/06/22 11:16:05 by florianhame       #+#    #+#             */
+/*   Updated: 2020/08/17 11:56:11 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
 
-int	color_pl(t_obj obj, double ratio, t_col col)
+void	init_col(t_col *col, t_data *data)
 {
-	int	color;
-	int	r;
-	int	g;
-	int	b;
-
-	ratio = (int)ratio;
-	color = 0;
-	// r = fmin(255, ((t_pl *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_pl *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_pl *)(obj.ptr))->b * (data->amb->power + ratio));
-	r = fmin((((t_pl *)(obj.ptr))->r), col.r);
-	g = fmin((((t_pl *)(obj.ptr))->g), col.g);
-	b = fmin((((t_pl *)(obj.ptr))->b), col.b);
-	color += (int)((r / 16) * pow(16, 5)) + ((r % 16) * pow(16, 4));
-	color += (int)((g / 16) * pow(16, 3)) + ((g % 16) * pow(16, 2));
-	color += (int)((b / 16) * pow(16, 1)) + ((b % 16) * pow(16, 0));
-	return (color);
+	col->r = data->amb->r * data->amb->power;
+	col->g = data->amb->g * data->amb->power;
+	col->b = data->amb->b * data->amb->power;
+	col->nb_lgts = 1;
 }
 
-int	color_sp(t_obj obj, double ratio, t_col col)
+double	get_len_lgt(t_obj obj, t_lgt *lgt)
 {
-	int		color;
-	int		r;
-	int		g;
-	int		b;
+	t_vec	lgt_vec;
 
-	ratio = (int)ratio;
-	color = 0;
-	// r = fmin(255, ((t_sp *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_sp *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_sp *)(obj.ptr))->b * (data->amb->power + ratio));
-	r = fmin((((t_sp *)(obj.ptr))->r), col.r);
-	g = fmin((((t_sp *)(obj.ptr))->g), col.g);
-	b = fmin((((t_sp *)(obj.ptr))->b), col.b);
-	color += (int)((r / 16) * pow(16, 5)) + ((r % 16) * pow(16, 4));
-	color += (int)((g / 16) * pow(16, 3)) + ((g % 16) * pow(16, 2));
-	color += (int)((b / 16) * pow(16, 1)) + ((b % 16) * pow(16, 0));
-	return (color);
+	lgt_vec.x = obj.x - lgt->x;
+	lgt_vec.y = obj.y - lgt->y;
+	lgt_vec.z = obj.z - lgt->z;
+	return (sqrt(pow(lgt_vec.x, 2) + pow(lgt_vec.y, 2) + pow(lgt_vec.z, 2)));
 }
 
-int	color_sq(t_obj obj, double ratio, t_col col)
+int		color_obj(t_data *data, t_obj obj)
 {
-	int	color;
-	int	r;
-	int	g;
-	int	b;
+	t_lgt	*lgt;
+	double	ratio;
+	t_col	col;
+	double	len_lgt;
 
-	ratio = (int)ratio;
-	color = 0;
-	// r = fmin(255, ((t_sq *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_sq *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_sq *)(obj.ptr))->b * (data->amb->power + ratio));
-	r = fmin((((t_sq *)(obj.ptr))->r), col.r);
-	g = fmin((((t_sq *)(obj.ptr))->g), col.g);
-	b = fmin((((t_sq *)(obj.ptr))->b), col.b);
-	color += (int)((r / 16) * pow(16, 5)) + ((r % 16) * pow(16, 4));
-	color += (int)((g / 16) * pow(16, 3)) + ((g % 16) * pow(16, 2));
-	color += (int)((b / 16) * pow(16, 1)) + ((b % 16) * pow(16, 0));
-	return (color);
+	lgt = data->lgt;
+	ratio = 0;
+	init_col(&col, data);
+	while (lgt != NULL)
+	{
+		if (!lgt_intersection(obj, lgt, data))
+		{
+			len_lgt = get_len_lgt(obj, lgt);
+			ratio = fmax(0, f_ratio(obj, lgt, data->c));
+			col.r += lgt->r * lgt->power * ratio;
+			col.g += lgt->g * lgt->power * ratio;
+			col.b += lgt->b * lgt->power * ratio;
+		}
+		lgt = lgt->next;
+	}
+	return (color_reflexion(obj, ratio, col));	
 }
 
-int	color_cy(t_obj obj, double ratio, t_col col)
+int	color_reflexion(t_obj obj, double ratio, t_col col)
 {
-	int	color;
-	int	r;
-	int	g;
-	int	b;
+	int	back_color;
 
-	ratio = (int)ratio;
-	color = 0;
-	// r = fmin(255, ((t_cy *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_cy *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_cy *)(obj.ptr))->b * (data->amb->power + ratio));
-	r = fmin((((t_cy *)(obj.ptr))->r), col.r);
-	g = fmin((((t_cy *)(obj.ptr))->g), col.g);
-	b = fmin((((t_cy *)(obj.ptr))->b), col.b);
-	color += (int)((r / 16) * pow(16, 5)) + ((r % 16) * pow(16, 4));
-	color += (int)((g / 16) * pow(16, 3)) + ((g % 16) * pow(16, 2));
-	color += (int)((b / 16) * pow(16, 1)) + ((b % 16) * pow(16, 0));
-	return (color);
-}
-
-int	color_tr(t_obj obj, double ratio, t_col col)
-{
-	int	color;
-	int	r;
-	int	g;
-	int	b;
-
-	ratio = (int)ratio;
-	color = 0;
-	// r = fmin(255, ((t_tr *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_tr *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_tr *)(obj.ptr))->b * (data->amb->power + ratio));
-	r = fmin((((t_tr *)(obj.ptr))->r), col.r);
-	g = fmin((((t_tr *)(obj.ptr))->g), col.g);
-	b = fmin((((t_tr *)(obj.ptr))->b), col.b);
-	color += (int)((r / 16) * pow(16, 5)) + ((r % 16) * pow(16, 4));
-	color += (int)((g / 16) * pow(16, 3)) + ((g % 16) * pow(16, 2));
-	color += (int)((b / 16) * pow(16, 1)) + ((b % 16) * pow(16, 0));
-	return (color);
+	// back_color = 16776960;
+	back_color = 0;
+	col.r = (int)fmin(255, col.r);
+	col.g = (int)fmin(255, col.g);
+	col.b = (int)fmin(255, col.b);
+	if (obj.id == 4)
+		return (color_pl(obj, ratio, col));
+	if (obj.id == 5)
+		return (color_sp(obj, ratio, col));
+	if (obj.id == 6)
+		return (color_sq(obj, ratio, col));
+	if (obj.id == 7)
+		return (color_cy(obj, ratio, col));
+	if (obj.id == 8)
+		return (color_tr(obj, ratio, col));
+	return (back_color);
 }

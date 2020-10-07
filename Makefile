@@ -6,7 +6,7 @@
 #    By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2020/05/26 12:27:25 by florianhame      ###   ########.fr        #
+#    Updated: 2020/10/06 11:57:37 by florianhame      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ D_OBJS		=	objs/
 
 D_SRCS		=	srcs/
 
-_SRC_		=	check_objs.c \
+_SRC_		=	block.c \
+				check_objs.c \
 				check_objs2.c \
 				check_test.c \
 				check_utils.c \
@@ -41,14 +42,22 @@ _SRC_		=	check_objs.c \
 				facing_ratio2.c \
 				get_next_line.c \
 				get_next_line_utils.c \
-				intersections.c \
-				intersections_utils.c \
+				intersection.c \
+				intersection_utils.c \
+				intersection_utils2.c \
+				intersection_utils3.c \
+				light_intersection.c \
 				main_test.c \
+				objs_scene.c \
 				parsing.c \
 				parsing2.c \
 				ray_tracer.c \
 				ray_tracer_utils.c \
-				scene.c
+				reflexion.c \
+				save.c \
+				scene.c \
+				screen.c \
+				screen_utils.c
 
 SRCS		=	$(addprefix $(D_SRCS), $(_SRC_))
 OBJS		=	$(addprefix $(D_OBJS), $(_SRC_:.c=.o))

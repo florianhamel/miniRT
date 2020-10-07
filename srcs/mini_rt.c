@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 17:54:37 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/14 00:21:54 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/08/17 12:28:15 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+
+int	main(int ac, char **av)
+{
+	if (ac == 1)
+		exit(EXIT_FAILURE);
+	return (0);
+}
 
 int	mini_rt(char *file)
 {
