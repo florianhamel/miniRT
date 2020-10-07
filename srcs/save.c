@@ -6,25 +6,24 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 13:43:58 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/06 19:20:08 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/07 15:33:19 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_rt.h"
+#include "../includes/mini_rt.h"
 
 void	write_img(t_bmp bmp, t_infos *infos)
 {
 	int				i;
-	unsigned char	test;
+	unsigned char	alpha;
 
-	i = 0;
-	test = 255;
-	while (i < (infos->sl / infos->bpp) * infos->data->res->y)
+	i = (infos->sl / infos->bpp) * infos->data->res->y - 1;
+	alpha = 255;
+	while (i >= 0)
 	{
-		// printf("%d\n", (int)(infos->img_addr)[i * infos->bpp]);
 		write(bmp.fd, &(infos->img_addr)[i * infos->bpp], 3);
-		write(bmp.fd, &test, 1);
-		i++;
+		write(bmp.fd, &alpha, 1);
+		i--;
 	}
 }
 
@@ -43,6 +42,7 @@ void	write_bmp(t_infos *infos)
 	write(bmp.fd, &(bmp.size), sizeof(int));
 	write(bmp.fd, &(bmp.zero), sizeof(int));
 	write(bmp.fd, &(bmp.offset), sizeof(int));
+	write(bmp.fd, &(bmp.headersize), sizeof(int));
 	write(bmp.fd, &(infos->data->res->x), sizeof(int));
 	write(bmp.fd, &(infos->data->res->y), sizeof(int));
 	write(bmp.fd, &(bmp.planes), sizeof(short int));
@@ -55,4 +55,3 @@ void	write_bmp(t_infos *infos)
 	write(bmp.fd, &(bmp.zero), sizeof(int));
 	write_img(bmp, infos);
 }
-
