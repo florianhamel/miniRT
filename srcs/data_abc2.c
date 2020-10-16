@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 16:41:24 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/26 00:19:56 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:19:28 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	get_abc_sp(int type, t_sp *obj, char *line)
 {
 	if (type == 0)
 	{
-		// ft_printf("test: %lf\n", get_abc(0, line));
 		obj->x = get_abc(0, line);
 		obj->y = get_abc(1, line);
 		obj->z = get_abc(2, line);

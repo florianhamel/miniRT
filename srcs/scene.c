@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 10:54:58 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/06 19:13:36 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:17:31 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,6 @@ void	print_scene(t_data *data, int **pix)
 	t_infos	infos;
 	int		i;
 
-	// infos.mlx = mlx_init();
-	// infos.win = mlx_new_window(infos.mlx, data->res->x, data->res->y, "Scene");
-	// infos.img_ptr = mlx_new_image(infos.mlx, data->res->x, data->res->y);
-	// infos.img_addr = mlx_get_data_addr(infos.img_ptr, &(img_i.bpp), &(img_i.sl), &(img_i.end));
-	// infos.data = data;
-	// img_i.bpp = img_i.bpp / 8;
-	// img_i.y = 0;
 	init_scene(&infos, data);
 	i = 0;
 	while (i < (infos.sl / infos.bpp) * data->res->y)
@@ -94,13 +87,13 @@ void	print_scene(t_data *data, int **pix)
 		while (infos.x < data->res->x)
 		{	
 			*(int *)(&(infos.img_addr)[i * infos.bpp]) = pix[infos.y][infos.x];
-			// printf("i: %d\n", *(int *)(&(infos.img_addr)[i * infos.bpp]));
 			infos.x++;
 			i++;
 		}
 		infos.y++;
 	}
-	write_bmp(&infos);
+	if (data->save == 1)
+		write_bmp(&infos);
 	mlx_put_image_to_window(infos.mlx, infos.win, infos.img_ptr, 0, 0);
 	mlx_hook(infos.win, 2, 0, events, &infos);
 	mlx_loop(infos.mlx);

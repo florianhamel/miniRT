@@ -78,22 +78,3 @@ int	get_next_line(int fd, char **line)
 	rest = NULL;
 	return (0);
 }
-
-#include <fcntl.h>
-
-// int main()
-// {
-// 	int		fd;
-// 	char	*line = NULL;
-// 	int		ret;
-
-// 	if ((fd = open("./get_next_line.c", O_RDONLY)) < 0)
-// 		printf("Error opening\n");
-// 	while ((ret = get_next_line(180, &line)) > 0)
-// 	{
-// 		printf("%s\n", line);
-// 		free(line);
-// 		line = NULL;
-// 	}
-// 	return (0);
-// }

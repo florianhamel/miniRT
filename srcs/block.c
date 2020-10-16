@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 11:52:49 by florianhame       #+#    #+#             */
-/*   Updated: 2020/08/17 11:59:46 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:19:07 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ long double	sp_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref)
 
 	len_vec = sqrt(pow(lgt_vec.x, 2) + pow(lgt_vec.y, 2) + pow(lgt_vec.z, 2));
 	normalize(&lgt_vec);
-	// printf("%f\n", ((t_sp *)(obj.ptr))->diam);
 	while (obj.ptr != NULL)
 	{
 		if (obj.ptr != ref.ptr && (t = sp_intersection(lgt_vec, (t_sp *)(obj.ptr), cl)) > 0

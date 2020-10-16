@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 17:54:37 by florianhame       #+#    #+#             */
-/*   Updated: 2020/08/17 12:28:15 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:20:36 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	mini_rt(char *file)
 		return (error_function(7));
 	if (parsing(fd, data) == -1)
 		return (-1);
-	// printf("height = %lf\n", data->cy->height);
-	// printf("res x = %d\n", data->res->x);
 	close(fd);
 	return (0);
 }

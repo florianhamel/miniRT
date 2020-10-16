@@ -6,15 +6,15 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 20:08:49 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/25 15:18:58 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:10:37 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include <stdio.h>
 
-int	init_data(t_data **data)
-{	
+int		init_data(t_data **data)
+{
 	if (!(*data = (t_data *)malloc(sizeof(t_data))))
 		return (-1);
 	(*data)->res = NULL;
@@ -26,10 +26,25 @@ int	init_data(t_data **data)
 	(*data)->sq = NULL;
 	(*data)->cy = NULL;
 	(*data)->tr = NULL;
+	(*data)->save = 0;
 	return (0);
 }
 
-int	get_data(t_data *data, int type, char *line)
+void	free_data(t_data **data)
+{
+	free((*data)->res);
+	free((*data)->amb);
+	free((*data)->cam);
+	free((*data)->c);
+	free((*data)->lgt);
+	free((*data)->pl);
+	free((*data)->sp);
+	free((*data)->sq);
+	free((*data)->cy);
+	free((*data)->tr);
+}
+
+int		get_data(t_data *data, int type, char *line)
 {
 	if (type == 0 && get_res(data, &line[1]) == -1)
 			return (error_function(8));

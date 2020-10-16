@@ -6,7 +6,7 @@
 #    By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2020/10/06 11:57:37 by florianhame      ###   ########.fr        #
+#    Updated: 2020/10/08 11:01:58 by florianhame      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ _SRC_		=	block.c \
 				intersection_utils2.c \
 				intersection_utils3.c \
 				light_intersection.c \
-				main_test.c \
+				main.c \
 				objs_scene.c \
 				parsing.c \
 				parsing2.c \
@@ -93,7 +93,7 @@ $(D_OBJS)%.o : $(D_SRCS)%.c
 	$(CC) $(FLAGS) -c $< -o $@ -Iincludes -Ift_printf -Imlx
 
 $(MINI_RT) : $(FT_PRINTF) $(MLX) $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) -framework OpenGL -framework Appkit -o $@ \
+	@$(CC) $(FLAGS) $(OBJS) $(FSANITIZE) -framework OpenGL -framework Appkit -o $@ \
 	-Iincludes -Ift_printf -Lft_printf -lftprintf -Lmlx -lmlx
 
 clean :

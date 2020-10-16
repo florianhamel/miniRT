@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/10/06 16:08:21 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:08:32 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef	struct		s_data
 	t_sq			*sq;
 	t_cy			*cy;
 	t_tr			*tr;
+	int				save;
 }					t_data;
 
 typedef	struct		s_pxl
@@ -272,6 +273,10 @@ typedef	struct		s_bmp
 	int				zero;
 }					t_bmp;
 
+/*
+** main.c
+*/
+int					check_save_opt(char **av);
 
 /*
 mini_rt.c
@@ -325,6 +330,7 @@ int					check_current(int id, t_test *test);
 data.c
 */
 int					init_data(t_data **data);
+void				free_data(t_data **data);
 int					get_data(t_data *data, int id, char *line);
 
 

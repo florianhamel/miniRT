@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 10:12:44 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/06 19:10:48 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:17:38 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		get_pix(t_data *data, t_pxl pxl, t_mtx4 m)
 	cam_ray = get_cam_ray(data, pix_cam, m);
 	obj = closest_obj(data, cam_ray);
 	int	test = color_obj(data, obj);
-	// printf("%d\n", test);
 	return test;
 }
 

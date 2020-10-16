@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 14:02:01 by florianhame       #+#    #+#             */
-/*   Updated: 2020/08/21 14:57:22 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:21:05 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,24 +95,24 @@ int	check_format(int id, char *line)
 int	error_function(int err)
 {
 	if (err == 0)
-		printf("Error 0\nPlease select a file with \".rt\" extention.\n");
+		ft_printf("Error 0\nPlease select a file with \".rt\" extention.\n");
 	if (err == 1)
-		printf("Error 1\nGNL couldn't read the file.\n");
+		ft_printf("Error 1\nGNL couldn't read the file.\n");
 	if (err == 2)
-		printf("Error 2\nInvalid type.\n");
+		ft_printf("Error 2\nInvalid type.\n");
 	if (err == 3)
-		printf("Error 3\nWrong format.\n");
+		ft_printf("Error 3\nWrong format.\n");
 	if (err == 4)
-		printf("Error 4\nAt least one object is missing or separated from his block.\n");
+		ft_printf("Error 4\nAt least one object is missing or separated from his block.\n");
 	if (err == 5)
-		printf("Error 5\nToo many resolutions or ambiant lights.\n");
+		ft_printf("Error 5\nToo many resolutions or ambiant lights.\n");
 	if (err == 6)
-		printf("Error 6\nMissplaced object.\n");
+		ft_printf("Error 6\nMissplaced object.\n");
 	if (err == 7)
-		printf("Error 7\nA problem was encountered while initializing the data.\n");
+		ft_printf("Error 7\nA problem was encountered while initializing the data.\n");
 	if (err == 8)
-		printf("Error 8\nA problem was encountered while extracting the data.\n");
+		ft_printf("Error 8\nA problem was encountered while extracting the data.\n");
 	if (err == 9)
-		printf("Error 9\nA problem was encountered with ray tracer.\n");
+		ft_printf("Error 9\nA problem was encountered with ray tracer.\n");
 	return (-1);
 }

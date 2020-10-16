@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   reflexion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 22:27:04 by florianhame       #+#    #+#             */
-/*   Updated: 2020/06/10 14:45:30 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/12 12:22:08 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ int	color_pl(t_obj obj, double ratio, t_col col)
 
 	ratio = (int)ratio;
 	color = 0;
-	// r = fmin(255, ((t_pl *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_pl *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_pl *)(obj.ptr))->b * (data->amb->power + ratio));
 	r = fmin((((t_pl *)(obj.ptr))->r), col.r);
 	g = fmin((((t_pl *)(obj.ptr))->g), col.g);
 	b = fmin((((t_pl *)(obj.ptr))->b), col.b);
@@ -43,9 +40,6 @@ int	color_sp(t_obj obj, double ratio, t_col col)
 
 	ratio = (int)ratio;
 	color = 0;
-	// r = fmin(255, ((t_sp *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_sp *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_sp *)(obj.ptr))->b * (data->amb->power + ratio));
 	r = fmin((((t_sp *)(obj.ptr))->r), col.r);
 	g = fmin((((t_sp *)(obj.ptr))->g), col.g);
 	b = fmin((((t_sp *)(obj.ptr))->b), col.b);
@@ -64,9 +58,6 @@ int	color_sq(t_obj obj, double ratio, t_col col)
 
 	ratio = (int)ratio;
 	color = 0;
-	// r = fmin(255, ((t_sq *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_sq *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_sq *)(obj.ptr))->b * (data->amb->power + ratio));
 	r = fmin((((t_sq *)(obj.ptr))->r), col.r);
 	g = fmin((((t_sq *)(obj.ptr))->g), col.g);
 	b = fmin((((t_sq *)(obj.ptr))->b), col.b);
@@ -85,9 +76,6 @@ int	color_cy(t_obj obj, double ratio, t_col col)
 
 	ratio = (int)ratio;
 	color = 0;
-	// r = fmin(255, ((t_cy *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_cy *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_cy *)(obj.ptr))->b * (data->amb->power + ratio));
 	r = fmin((((t_cy *)(obj.ptr))->r), col.r);
 	g = fmin((((t_cy *)(obj.ptr))->g), col.g);
 	b = fmin((((t_cy *)(obj.ptr))->b), col.b);
@@ -106,9 +94,6 @@ int	color_tr(t_obj obj, double ratio, t_col col)
 
 	ratio = (int)ratio;
 	color = 0;
-	// r = fmin(255, ((t_tr *)(obj.ptr))->r * (data->amb->power + ratio));
-	// g = fmin(255, ((t_tr *)(obj.ptr))->g * (data->amb->power + ratio));
-	// b = fmin(255, ((t_tr *)(obj.ptr))->b * (data->amb->power + ratio));
 	r = fmin((((t_tr *)(obj.ptr))->r), col.r);
 	g = fmin((((t_tr *)(obj.ptr))->g), col.g);
 	b = fmin((((t_tr *)(obj.ptr))->b), col.b);
