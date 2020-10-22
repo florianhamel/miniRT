@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 17:02:13 by florianhame       #+#    #+#             */
-/*   Updated: 2020/05/25 15:53:42 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/21 16:42:04 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	fill_test(int id, t_test *test)
 int		check_test(t_test *test)
 {
 	if (test->res_amb && (!test->res || !test->amb))
-		return (error_function(4));
+		error_function(4);
 	if (test->cams_lgts && (!test->cams || !test->lgts))
-		return (error_function(4));
+		error_function(4);
 	if (test->objs && (!test->pl || !test->sp || !test->sq ||
 	!test->cy || !test->tr))
-		return (error_function(4));
+		error_function(4);
 	if (test->objs == 2)
 		test->objs = 1;
 	if (test->cams_lgts == 2)
@@ -79,14 +79,14 @@ int		check_current(int id, t_test *test)
 {
 	if (test->res_amb == 2 && (id == 2 || id == 3 ||
 	id == 4 || id == 5 || id == 6 || id == 7 || id == 8))
-		return (error_function(5));
+		error_function(5);
 	if (test->res_amb == 2 && ((id == 0 && test->res > 1) || (id == 1 && test->amb > 1)))
-		return (error_function(5));
+		error_function(5);
 	if (test->cams_lgts == 2 && (id == 0 || id == 1 ||
 	id == 4 || id == 5 || id == 6 || id == 7 || id == 8))
-		return (error_function(6));
+		error_function(6);
 	if (test->objs == 2 && (id == 0 || id == 1 ||
 	id == 2 || id == 3))
-		return (error_function(6));
+		error_function(6);
 	return (0);
 }

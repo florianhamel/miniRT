@@ -6,14 +6,15 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 14:02:01 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/12 12:21:05 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/21 18:22:18 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
-int	rt_file(int fd, t_data *data)
+int		rt_file(int fd, t_data *data)
 {
 	char	*line;
 	t_test	test;
@@ -37,11 +38,11 @@ int	rt_file(int fd, t_data *data)
 	set_cam(data);
 	free(line);
 	if (ret == -1)
-		return (error_function(1));
+		error_function(1);
 	return (0);
 }
 
-int	get_id(char *line)
+int		get_id(char *line)
 {
 	if (line[0] == 'R' && line[1] == ' ')
 		return (0);
@@ -61,10 +62,11 @@ int	get_id(char *line)
 		return (7);
 	if (line[0] == 't' && line[1] == 'r')
 		return (8);
-	return (error_function(2));
+	error_function(2);
+	return (-1);
 }
 
-int	check_format(int id, char *line)
+int		check_format(int id, char *line)
 {
 	int	ret;
 
@@ -88,11 +90,11 @@ int	check_format(int id, char *line)
 	if (id == 8)
 		ret = check_tr(&line[2]);
 	if (ret == -1)
-		return(error_function(3));
+		error_function(3);
 	return (0);
 }
 
-int	error_function(int err)
+void	error_function(int err)
 {
 	if (err == 0)
 		ft_printf("Error 0\nPlease select a file with \".rt\" extention.\n");
@@ -114,5 +116,11 @@ int	error_function(int err)
 		ft_printf("Error 8\nA problem was encountered while extracting the data.\n");
 	if (err == 9)
 		ft_printf("Error 9\nA problem was encountered with ray tracer.\n");
-	return (-1);
+	if (err == 10)
+		ft_printf("Error 10\nNot enough arguments.\n");
+	if (err == 11)
+		ft_printf("Error 11\nToo many arguments.\n");
+	if (err == 12)
+		ft_printf("Error 12\nIf the third argument exists, it has to be \"-save\"\n");
+	exit(ERROR);
 }

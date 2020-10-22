@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 10:54:58 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/12 12:17:31 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/21 18:31:51 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ void	print_scene(t_data *data, int **pix)
 	}
 	if (data->save == 1)
 		write_bmp(&infos);
-	mlx_put_image_to_window(infos.mlx, infos.win, infos.img_ptr, 0, 0);
-	mlx_hook(infos.win, 2, 0, events, &infos);
-	mlx_loop(infos.mlx);
+	else
+	{
+		mlx_put_image_to_window(infos.mlx, infos.win, infos.img_ptr, 0, 0);
+		mlx_hook(infos.win, 2, 0, events, &infos);
+		mlx_loop(infos.mlx);
+	}
 }
