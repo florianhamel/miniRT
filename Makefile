@@ -6,7 +6,7 @@
 #    By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2020/10/22 15:26:18 by florianhame      ###   ########.fr        #
+#    Updated: 2020/10/25 18:00:34 by florianhame      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #####                              FILES VARS                              #####
 ################################################################################
 
-MINI_RT		=	mini_rt
+MINI_RT		=	miniRT
 
 D_INCLUDES	=	includes/
 
@@ -68,7 +68,7 @@ MLX			=	libmlx.a
 #####                           COMPILER OPTIONS                           #####
 ################################################################################
 
-CC			=	gcc
+CC			=	clang
 FLAGS		=	-Wall -Wextra -Werror
 FSANITIZE	=	-g -fsanitize=address
 
@@ -99,7 +99,6 @@ $(MINI_RT) : $(FT_PRINTF) $(OBJS)
 clean :
 	@rm -rf $(D_OBJS)
 	@make clean -C ft_printf
-
 
 fclean : clean
 	@rm -rf $(MINI_RT)

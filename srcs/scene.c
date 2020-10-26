@@ -6,12 +6,11 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 10:54:58 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/21 18:31:51 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/25 19:05:19 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include "mlx.h"
 
 t_obj	closest_obj(t_data *data, t_vec cam_ray)
 {
@@ -40,6 +39,7 @@ int	events(int keycode, void *infos_ptr)
 {
 	t_infos	*infos;
 
+	printf("%d\n", keycode);
 	infos = (t_infos *)infos_ptr;
 	if (keycode == 53)
 	{
@@ -58,6 +58,18 @@ int	events(int keycode, void *infos_ptr)
 		mlx_destroy_window(infos->mlx, infos->win);
 		ray_tracer(infos->data);
 	}
+	if (keycode == 3)
+	{
+	}
+	return (0);
+}
+
+int	close_win(void *infos_ptr)
+{
+	t_infos	*infos;
+
+	infos = (t_infos *)infos_ptr;
+	exit(0);
 	return (0);
 }
 
@@ -81,7 +93,7 @@ void	print_scene(t_data *data, int **pix)
 
 	init_scene(&infos, data);
 	i = 0;
-	while (i < (infos.sl / infos.bpp) * data->res->y)
+	while (i < (4 * data->res->x / infos.bpp) * data->res->y)
 	{
 		infos.x = 0;
 		while (infos.x < data->res->x)
@@ -97,6 +109,7 @@ void	print_scene(t_data *data, int **pix)
 	else
 	{
 		mlx_put_image_to_window(infos.mlx, infos.win, infos.img_ptr, 0, 0);
+		mlx_hook(infos.win, 17, 0, close_win, &infos);
 		mlx_hook(infos.win, 2, 0, events, &infos);
 		mlx_loop(infos.mlx);
 	}

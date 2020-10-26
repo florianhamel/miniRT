@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/10/12 12:08:32 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/25 18:00:22 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include "../mlx/mlx.h"
 
 # define SAME_POINT 0.000001
+# define ERROR -1
 
 typedef	struct		s_test
 {
@@ -294,7 +296,7 @@ parsing.c
 int					rt_file(int fd, t_data *data);
 int					get_id(char *line);
 int					check_format(int id, char *line);
-int					error_function(int err);
+void				error_function(int err);
 
 /*
 parsing2.c

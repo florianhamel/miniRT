@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 14:02:01 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/21 18:22:18 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/25 15:48:40 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int		rt_file(int fd, t_data *data)
 		free(line);
 		line = NULL;
 	}
-	set_cam(data);
-	free(line);
 	if (ret == -1)
 		error_function(1);
+	set_cam(data);
+	free(line);
 	return (0);
 }
 
@@ -121,6 +121,8 @@ void	error_function(int err)
 	if (err == 11)
 		ft_printf("Error 11\nToo many arguments.\n");
 	if (err == 12)
-		ft_printf("Error 12\nIf the third argument exists, it has to be \"-save\"\n");
+		ft_printf("Error 12\nIf a third argument exists, it has to be \"-save\".\n");
+	if (err == 13)
+		ft_printf("Error 13\nThe file couldn't be opened.\n");
 	exit(ERROR);
 }

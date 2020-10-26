@@ -6,7 +6,7 @@
 /*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 13:43:58 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/07 15:33:19 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/25 19:20:32 by florianhame      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,21 @@
 void	write_img(t_bmp bmp, t_infos *infos)
 {
 	int				i;
+	int				j;
 	unsigned char	alpha;
 
-	i = (infos->sl / infos->bpp) * infos->data->res->y - 1;
+	i = (infos->data->res->x * infos->data->res->y) - 1;
 	alpha = 255;
 	while (i >= 0)
 	{
-		write(bmp.fd, &(infos->img_addr)[i * infos->bpp], 3);
-		write(bmp.fd, &alpha, 1);
-		i--;
+		j = i - infos->data->res->x;
+		while (j >= 0 && j < i)
+		{
+			write(bmp.fd, &(infos->img_addr)[j * infos->bpp], 3);
+			write(bmp.fd, &alpha, 1);
+			j++;
+		}
+		i -= infos->data->res->x;
 	}
 }
 
@@ -31,7 +37,7 @@ void	write_bmp(t_infos *infos)
 {
 	t_bmp	bmp;
 
-	bmp.fd = open("img.bmp", O_WRONLY | O_CREAT | O_TRUNC);
+	bmp.fd = open("miniRT.bmp", O_WRONLY | O_CREAT | O_TRUNC);
 	bmp.zero = 0;
 	bmp.size = 54 + (4 * infos->data->res->x * infos->data->res->y);
 	bmp.offset = 54;
