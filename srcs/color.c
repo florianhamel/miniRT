@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 11:16:05 by florianhame       #+#    #+#             */
-/*   Updated: 2020/08/17 11:56:11 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 10:44:26 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int		color_obj(t_data *data, t_obj obj)
 	t_lgt	*lgt;
 	double	ratio;
 	t_col	col;
-	double	len_lgt;
 
 	lgt = data->lgt;
 	ratio = 0;
@@ -44,7 +43,6 @@ int		color_obj(t_data *data, t_obj obj)
 	{
 		if (!lgt_intersection(obj, lgt, data))
 		{
-			len_lgt = get_len_lgt(obj, lgt);
 			ratio = fmax(0, f_ratio(obj, lgt, data->c));
 			col.r += lgt->r * lgt->power * ratio;
 			col.g += lgt->g * lgt->power * ratio;
@@ -52,14 +50,13 @@ int		color_obj(t_data *data, t_obj obj)
 		}
 		lgt = lgt->next;
 	}
-	return (color_reflexion(obj, ratio, col));	
+	return (color_reflexion(obj, ratio, col));
 }
 
-int	color_reflexion(t_obj obj, double ratio, t_col col)
+int		color_reflexion(t_obj obj, double ratio, t_col col)
 {
 	int	back_color;
 
-	// back_color = 16776960;
 	back_color = 0;
 	col.r = (int)fmin(255, col.r);
 	col.g = (int)fmin(255, col.g);

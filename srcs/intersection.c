@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 16:20:25 by florianhame       #+#    #+#             */
-/*   Updated: 2020/06/24 12:11:18 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 09:10:15 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
 
 double	pl_intersection(t_vec ray, t_pl *pl, t_vec cl)
 {
 	long double	a;
 	long double	b;
 	long double	d;
-	t_vec	normal;
+	t_vec		normal;
 
 	normal.x = pl->vec_x;
 	normal.y = pl->vec_y;
@@ -30,7 +29,7 @@ double	pl_intersection(t_vec ray, t_pl *pl, t_vec cl)
 	if (-b / a > 0)
 		return (-b / a);
 	return (-1);
-} 
+}
 
 double	sp_intersection(t_vec ray, t_sp *sp, t_vec cl)
 {
@@ -54,9 +53,7 @@ double	sq_intersection(t_vec ray, t_sq *sq, t_vec cl)
 	t_vec	m;
 	double	a_p;
 	double	b_p;
-	double	half_c;
 
-	half_c = sq->height / 2;
 	n.x = sq->vec_x;
 	n.y = sq->vec_y;
 	n.z = sq->vec_z;

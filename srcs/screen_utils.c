@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screen_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 11:12:14 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/06 19:01:10 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/27 23:38:16 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_vec	mtx4_p(t_mtx4 m, t_vec p)
 	return (pix);
 }
 
-int	sl_res_x(t_data *data)
+int		sl_res_x(t_data *data)
 {
 	int	new_res;
 

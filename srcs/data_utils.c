@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 20:23:19 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/26 12:11:25 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 10:38:52 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include "ft_printf.h"
-#include <stdio.h>
 
-double			floatoi(char *line)
+double	floatoi(char *line)
 {
 	double	nb;
 	double	div;
@@ -37,7 +36,7 @@ double			floatoi(char *line)
 	return (nb);
 }
 
-double			get_abc(int coord, char *line)
+double	get_abc(int coord, char *line)
 {
 	int	i;
 

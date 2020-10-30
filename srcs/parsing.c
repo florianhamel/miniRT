@@ -3,35 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 14:02:01 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/25 15:48:40 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 11:24:06 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include "ft_printf.h"
-#include <stdio.h>
 
 int		rt_file(int fd, t_data *data)
 {
 	char	*line;
 	t_test	test;
-	int		id;
 	int		ret;
 
 	line = NULL;
 	init_test(&test);
-	id = -1;
 	while ((ret = get_next_line(fd, &line)) > -1)
 	{
 		if (parsing(line, &test) == -1)
 			return (-1);
-		if (line [0] != '\0' && get_data(data, get_id(line), line) == -1)
+		if (line[0] != '\0' && get_data(data, get_id(line), line) == -1)
 			return (-1);
 		if (ret == 0)
-				break ;
+			break ;
 		free(line);
 		line = NULL;
 	}
@@ -105,24 +102,19 @@ void	error_function(int err)
 	if (err == 3)
 		ft_printf("Error 3\nWrong format.\n");
 	if (err == 4)
-		ft_printf("Error 4\nAt least one object is missing or separated from his block.\n");
+		ft_printf("Error 4\nAt least one object is missing \
+or separated from his block.\n");
 	if (err == 5)
 		ft_printf("Error 5\nToo many resolutions or ambiant lights.\n");
 	if (err == 6)
 		ft_printf("Error 6\nMissplaced object.\n");
 	if (err == 7)
-		ft_printf("Error 7\nA problem was encountered while initializing the data.\n");
+		ft_printf("Error 7\nA problem was encountered while \
+initializing the data.\n");
 	if (err == 8)
-		ft_printf("Error 8\nA problem was encountered while extracting the data.\n");
+		ft_printf("Error 8\nA problem was encountered while \
+extracting the data.\n");
 	if (err == 9)
 		ft_printf("Error 9\nA problem was encountered with ray tracer.\n");
-	if (err == 10)
-		ft_printf("Error 10\nNot enough arguments.\n");
-	if (err == 11)
-		ft_printf("Error 11\nToo many arguments.\n");
-	if (err == 12)
-		ft_printf("Error 12\nIf a third argument exists, it has to be \"-save\".\n");
-	if (err == 13)
-		ft_printf("Error 13\nThe file couldn't be opened.\n");
 	exit(ERROR);
 }

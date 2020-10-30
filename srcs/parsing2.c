@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:44:41 by florianhame       #+#    #+#             */
-/*   Updated: 2020/08/17 12:20:29 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 11:23:14 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
+#include "ft_printf.h"
 
 int		parsing(char *line, t_test *test)
 {
@@ -47,4 +47,18 @@ void	set_cam(t_data *data)
 	data->cam->prev = cam;
 	cam->next = data->cam;
 	cam = data->cam;
+}
+
+void	error_file_function(int err)
+{
+	if (err == 10)
+		ft_printf("Error 10\nNot enough arguments.\n");
+	if (err == 11)
+		ft_printf("Error 11\nToo many arguments.\n");
+	if (err == 12)
+		ft_printf("Error 12\nIf a third argument exists, it has to be \
+\"-save\".\n");
+	if (err == 13)
+		ft_printf("Error 13\nThe file couldn't be opened.\n");
+	exit(ERROR);
 }

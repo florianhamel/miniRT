@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 11:09:39 by florianhame       #+#    #+#             */
-/*   Updated: 2020/06/22 11:10:54 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/27 23:37:34 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_vec	get_cam_ray(t_data *data, t_vec pix_cam, t_mtx4 m)
 	cam_ray.y = pix_pos.y - data->c->y;
 	cam_ray.z = pix_pos.z - data->c->z;
 	normalize(&cam_ray);
-	// printf("x = %lf | y = %lf | z = %lf\n", cam_ray.x, cam_ray.y, cam_ray.z);
 	return (cam_ray);
 }
 
@@ -56,8 +55,9 @@ double	get_y_cam(t_data *data, int y)
 	double	y_cam;
 
 	y_ndc = (y + 0.5) / data->res->y;
-	y_screen = 1 - (2 * y_ndc); 
-	ratio = (data->res->y > data->res->x ? (data->res->y / (double)data->res->x) : 1);
+	y_screen = 1 - (2 * y_ndc);
+	ratio = (data->res->y > data->res->x ? (data->res->y /
+	(double)data->res->x) : 1);
 	y_cam = y_screen * ratio * tan(data->c->fov * (M_PI / 180) / 2);
 	return (y_cam);
 }
@@ -70,8 +70,9 @@ double	get_x_cam(t_data *data, int x)
 	double	x_cam;
 
 	x_ndc = (x + 0.5) / data->res->x;
-	x_screen = (2 * x_ndc) - 1; 
-	ratio = (data->res->x > data->res->y ? (data->res->x / (double)data->res->y) : 1);
+	x_screen = (2 * x_ndc) - 1;
+	ratio = (data->res->x > data->res->y ? (data->res->x /
+	(double)data->res->y) : 1);
 	x_cam = x_screen * ratio * tan(data->c->fov * (M_PI / 180) / 2);
 	return (x_cam);
 }

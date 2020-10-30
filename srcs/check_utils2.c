@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:43:51 by florianhame       #+#    #+#             */
-/*   Updated: 2020/05/25 15:26:59 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 10:44:54 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,8 @@ int	check_obj_color(int i, char *line)
 
 int	check_l_ratio_color(int i, char *line)
 {
-	int ret;
-
-	ret = 0;
 	if (check_ws(&i, line) == -1)
-		return (-1);;
+		return (-1);
 	if (line[i] != '0' && line[i] != '1')
 		return (-1);
 	i++;

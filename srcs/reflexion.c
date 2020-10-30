@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   reflexion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 22:27:04 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/12 12:22:08 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/27 23:39:16 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
 
 int	color_pl(t_obj obj, double ratio, t_col col)
 {

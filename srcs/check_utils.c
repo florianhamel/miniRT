@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   check_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:13:56 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/26 12:10:51 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 10:45:54 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include "ft_printf.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 int	check_nb(char *line)
 {
 	int	i;
-	
+
 	i = 0;
 	if (line[i] == '-')
 		i++;
@@ -61,11 +59,9 @@ int	check_coord(char *line)
 int	check_vec(char *line)
 {
 	int	i;
-	int	ret;
 	int vec;
 
 	i = 0;
-	ret = 0;
 	vec = 0;
 	while (vec < 3)
 	{
@@ -92,12 +88,10 @@ int	check_color(char *line)
 {
 	int	i;
 	int	col;
-	int	ret;
 	int nb;
 
 	i = 0;
 	col = 0;
-	ret = 0;
 	while (col < 3)
 	{
 		nb = ft_atoi(&line[i]);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   save.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 13:43:58 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/25 19:20:32 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/27 23:38:27 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_rt.h"
+#include "mini_rt.h"
 
 void	write_img(t_bmp bmp, t_infos *infos)
 {

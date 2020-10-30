@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 10:12:44 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/25 12:57:01 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/27 23:39:55 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	ray_tracer(t_data *data)
 {
@@ -41,7 +40,7 @@ int	ray_tracer(t_data *data)
 	return (0);
 }
 
-int		get_pix(t_data *data, t_pxl pxl, t_mtx4 m)
+int	get_pix(t_data *data, t_pxl pxl, t_mtx4 m)
 {
 	t_vec	cam_ray;
 	t_vec	pix_cam;
@@ -62,7 +61,7 @@ int	**init_tab_pix(int res_y, int res_x)
 	y = 0;
 	x = 0;
 	if (!(pix = (int **)malloc(sizeof(int *) * res_y)))
-		return (NULL);		
+		return (NULL);
 	while (y < res_y)
 	{
 		x = 0;

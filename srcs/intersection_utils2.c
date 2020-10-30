@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_utils2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:06:54 by florianhame       #+#    #+#             */
-/*   Updated: 2020/06/24 12:10:43 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 09:34:09 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ double	cy_roots(t_vec tab[3], t_vec ray, t_cy *cy, t_vec cl)
 	dot_p(cross_p(ray, tab[0]), cross_p(tab[2], tab[0])));
 	c = dot_p(cross_p(tab[2], tab[0]), cross_p(tab[2], tab[0])) +
 	dot_p(cross_p(tab[1], tab[0]), cross_p(tab[1], tab[0])) -
-	2 * dot_p(cross_p(tab[1], tab[0]), cross_p(tab[2], tab[0])) - pow((cy->diam / 2), 2);
+	2 * dot_p(cross_p(tab[1], tab[0]), cross_p(tab[2], tab[0])) -
+	pow((cy->diam / 2), 2);
 	delta = pow(b, 2) - (4 * a * c);
 	if (delta < 0)
 		return (-1);
@@ -55,15 +56,13 @@ double	cy_best_root(t_root t, t_cy *cy, t_vec cl, t_vec ray)
 	double	po_sqr;
 
 	po_sqr = 0;
-	p.x = 0;
-	p.y = 0;
-	p.z = 0;
+	init_vec(&p);
 	if (t.t1 > 0)
 	{
 		p.x = cl.x + (t.t1 * ray.x);
 		p.y = cl.y + (t.t1 * ray.y);
 		p.z = cl.z + (t.t1 * ray.z);
-		po_sqr = pow(p.x - cy->x, 2) + pow(p.y - cy->y, 2) + pow(p.z - cy->z, 2);
+		po_sqr = dist_sqr(p, cy);
 		if (sqrt(fmax(0, po_sqr - pow(cy->diam / 2, 2))) <= cy->height / 2)
 			return (t.t1);
 	}
@@ -72,7 +71,7 @@ double	cy_best_root(t_root t, t_cy *cy, t_vec cl, t_vec ray)
 		p.x = cl.x + (t.t2 * ray.x);
 		p.y = cl.y + (t.t2 * ray.y);
 		p.z = cl.z + (t.t2 * ray.z);
-		po_sqr = pow(p.x - cy->x, 2) + pow(p.y - cy->y, 2) + pow(p.z - cy->z, 2);
+		po_sqr = dist_sqr(p, cy);
 		if (sqrt(fmax(0, po_sqr - pow(cy->diam / 2, 2))) <= cy->height / 2)
 			return (t.t2);
 	}

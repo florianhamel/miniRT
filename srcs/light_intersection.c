@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   light_intersection.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:04:34 by florianhame       #+#    #+#             */
-/*   Updated: 2020/08/15 18:03:32 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 09:08:34 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
 
-int		same_point(t_vec lgt_vec, t_vec cl, t_obj ref, double t)
+int			same_point(t_vec lgt_vec, t_vec cl, t_obj ref, double t)
 {
 	t_vec tmp;
 
@@ -52,7 +51,7 @@ long double	any_intersection(t_data *data, t_vec lgt_vec, t_vec cl, t_obj ref)
 	return (0);
 }
 
-int		lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data)
+int			lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data)
 {
 	t_vec		lgt_vec;
 	t_vec		cl;
@@ -61,15 +60,9 @@ int		lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data)
 	lgt_vec.x = obj.x - lgt->x;
 	lgt_vec.y = obj.y - lgt->y;
 	lgt_vec.z = obj.z - lgt->z;
-	// lgt_vec.x = lgt->x - obj.x;
-	// lgt_vec.y = lgt->y - obj.y;
-	// lgt_vec.z = lgt->z - obj.z;
 	cl.x = lgt->x;
 	cl.y = lgt->y;
 	cl.z = lgt->z;
-	// cl.x = obj.x;
-	// cl.y = obj.y;
-	// cl.z = obj.z;
 	t = any_intersection(data, lgt_vec, cl, obj);
 	if (t == 0)
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 11:52:49 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/12 12:19:07 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 11:20:11 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ long double	pl_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref)
 	normalize(&lgt_vec);
 	while (obj.ptr != NULL)
 	{
-		if (obj.ptr != ref.ptr && (t = pl_intersection(lgt_vec, (t_pl *)(obj.ptr), cl)) > 0
+		if (obj.ptr != ref.ptr && (t = pl_intersection(lgt_vec,
+		(t_pl *)(obj.ptr), cl)) > 0
 		&& t < len_vec)
 			return (t);
 		obj.ptr = ((t_pl *)(obj.ptr))->next;
@@ -39,7 +40,8 @@ long double	sp_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref)
 	normalize(&lgt_vec);
 	while (obj.ptr != NULL)
 	{
-		if (obj.ptr != ref.ptr && (t = sp_intersection(lgt_vec, (t_sp *)(obj.ptr), cl)) > 0
+		if (obj.ptr != ref.ptr && (t = sp_intersection(lgt_vec,
+		(t_sp *)(obj.ptr), cl)) > 0
 		&& t < len_vec)
 			return (t);
 		obj.ptr = ((t_sp *)(obj.ptr))->next;
@@ -54,9 +56,10 @@ long double	sq_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref)
 
 	len_vec = sqrt(pow(lgt_vec.x, 2) + pow(lgt_vec.y, 2) + pow(lgt_vec.z, 2));
 	normalize(&lgt_vec);
-	while (obj.ptr != NULL )
+	while (obj.ptr != NULL)
 	{
-		if (obj.ptr != ref.ptr && (t = sq_intersection(lgt_vec, (t_sq *)(obj.ptr), cl)) > 0
+		if (obj.ptr != ref.ptr && (t = sq_intersection(lgt_vec,
+		(t_sq *)(obj.ptr), cl)) > 0
 		&& t < len_vec)
 			return (t);
 		obj.ptr = ((t_sq *)(obj.ptr))->next;
@@ -73,11 +76,8 @@ long double	cy_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref)
 	normalize(&lgt_vec);
 	while (obj.ptr != NULL)
 	{
-		// if ((t = cy_intersection(lgt_vec, (t_cy *)(obj.ptr), cl)) > 0
-		// && !same_point(lgt_vec, cl, ref, t))
-		// 	return (t);
-		if ((t = cy_intersection(lgt_vec, (t_cy *)(obj.ptr), cl)) > 0 && t < len_vec
-		&& !same_point(lgt_vec, cl, ref, t))
+		if ((t = cy_intersection(lgt_vec, (t_cy *)(obj.ptr), cl)) > 0 &&
+		t < len_vec && !same_point(lgt_vec, cl, ref, t))
 			return (t);
 		obj.ptr = ((t_cy *)(obj.ptr))->next;
 	}
@@ -93,7 +93,8 @@ long double	tr_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref)
 	normalize(&lgt_vec);
 	while (obj.ptr != NULL)
 	{
-		if (obj.ptr != ref.ptr && (t = tr_intersection(lgt_vec, (t_tr *)(obj.ptr), cl)) > 0
+		if (obj.ptr != ref.ptr && (t = tr_intersection(lgt_vec,
+		(t_tr *)(obj.ptr), cl)) > 0
 		&& t < len_vec)
 			return (t);
 		obj.ptr = ((t_tr *)(obj.ptr))->next;

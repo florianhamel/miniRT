@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_test.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 17:02:13 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/21 16:42:04 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 10:46:25 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int		check_current(int id, t_test *test)
 	if (test->res_amb == 2 && (id == 2 || id == 3 ||
 	id == 4 || id == 5 || id == 6 || id == 7 || id == 8))
 		error_function(5);
-	if (test->res_amb == 2 && ((id == 0 && test->res > 1) || (id == 1 && test->amb > 1)))
+	if (test->res_amb == 2 && ((id == 0 && test->res > 1) ||
+	(id == 1 && test->amb > 1)))
 		error_function(5);
 	if (test->cams_lgts == 2 && (id == 0 || id == 1 ||
 	id == 4 || id == 5 || id == 6 || id == 7 || id == 8))

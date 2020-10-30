@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_tracer_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 11:23:10 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/26 12:00:45 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/27 23:40:30 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

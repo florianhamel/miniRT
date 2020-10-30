@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/20 15:03:18 by fhamel            #+#    #+#             */
+/*   Updated: 2020/10/28 10:24:22 by fhamel           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 void	fill(char *dst, const char *src, char end)
@@ -18,7 +30,7 @@ int		concat(char **line, char *buff, char end)
 	char	*new_line;
 	int		len_line;
 	int		len_buff;
-	
+
 	len_line = 0;
 	if (*line)
 	{

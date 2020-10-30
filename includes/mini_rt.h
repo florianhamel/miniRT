@@ -3,35 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/10/25 18:00:22 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/30 02:00:34 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef	MINI_RT_H
+# define MINI_RT_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
-#include "../mlx/mlx.h"
 
 # define SAME_POINT 0.000001
 # define ERROR -1
+# define DESTROY_NOTIFY 17
+# define STRUCT_NOTIFY_MASK 131072
+# define KEY_PRESS 2
+# define KEY_PRESS_MASK 1
+
+#if		defined(__linux__)
+# include <X11/Xlib.h>
+	# include "../mlx_linux/mlx.h"
+	# define ESCAPE_WIN 65307
+	# define PREV_SCENE 65361
+	# define NEXT_SCENE 65363
+#elif 	defined(__APPLE__)
+	# include "../mlx_macos/mlx.h"
+	# define ESCAPE_WIN 53
+	# define PREV_SCENE 123
+	# define NEXT_SCENE 124
+#endif
 
 typedef	struct		s_test
 {
-	int 			res_amb;
+	int				res_amb;
 	int				cams_lgts;
 	int				objs;
-	int 			res;
-	int 			amb;
-	int 			cams;
-	int 			lgts;
+	int				res;
+	int				amb;
+	int				cams;
+	int				lgts;
 	int				pl;
 	int				sp;
 	int				sq;
@@ -61,7 +76,7 @@ typedef	struct		s_cam
 	double			x;
 	double			y;
 	double			z;
-	double 			vec_x;
+	double			vec_x;
 	double			vec_y;
 	double			vec_z;
 	int				fov;
@@ -88,7 +103,7 @@ typedef	struct		s_pl
 	double			x;
 	double			y;
 	double			z;
-	double 			vec_x;
+	double			vec_x;
 	double			vec_y;
 	double			vec_z;
 	int				r;
@@ -109,7 +124,6 @@ typedef	struct		s_sp
 	int				b;
 	struct s_sp		*next;
 }					t_sp;
-
 
 typedef	struct		s_sq
 {
@@ -183,7 +197,6 @@ typedef	struct		s_pxl
 	int				y;
 }					t_pxl;
 
-
 typedef	struct		s_vec
 {
 	double			x;
@@ -204,7 +217,7 @@ typedef	struct		s_obj
 typedef	struct		s_root
 {
 	double			t1;
-	double			t2;	
+	double			t2;
 }					t_root;
 
 typedef	struct		s_mtx4
@@ -222,7 +235,6 @@ typedef	struct		s_col
 	int				b;
 	int				nb_lgts;
 }					t_col;
-
 
 typedef	struct		s_infos
 {
@@ -259,9 +271,6 @@ typedef struct		s_bmp_header
 	int				res_y;
 	int				nb_colors;
 	int				imp_colors;
-	/*
-	set to 0 generally ignored
-	*/
 }					t_bmp_header;
 
 typedef	struct		s_bmp
@@ -281,17 +290,17 @@ typedef	struct		s_bmp
 int					check_save_opt(char **av);
 
 /*
-mini_rt.c
+** mini_rt.c
 */
 int					mini_rt(char *file);
 
 /*
-gnl
+** gnl
 */
 int					get_next_line(int fd, char **line);
 
 /*
-parsing.c
+** parsing.c
 */
 int					rt_file(int fd, t_data *data);
 int					get_id(char *line);
@@ -299,13 +308,14 @@ int					check_format(int id, char *line);
 void				error_function(int err);
 
 /*
-parsing2.c
+** parsing2.c
 */
 int					parsing(char *line, t_test *test);
 void				set_cam(t_data *data);
+void				error_file_function(int err);
 
 /*
-check_utils.c
+** check_utils.c
 */
 int					check_nb(char *line);
 int					check_coord(char *line);
@@ -313,7 +323,7 @@ int					check_vec(char *line);
 int					check_color(char *line);
 
 /*
-check_utils2.c
+** check_utils2.c
 */
 int					check_ws(int *i, char *line);
 int					check_obj_color(int i, char *line);
@@ -321,7 +331,7 @@ int					check_l_ratio_color(int i, char *line);
 int					check_cy_nb_color(int i, char *line);
 
 /*
-check_test.c
+** check_test.c
 */
 void				init_test(t_test *test);
 void				fill_test(int id, t_test *test);
@@ -329,15 +339,14 @@ int					check_test(t_test *test);
 int					check_current(int id, t_test *test);
 
 /*
-data.c
+** data.c
 */
 int					init_data(t_data **data);
 void				free_data(t_data **data);
 int					get_data(t_data *data, int id, char *line);
 
-
 /*
-data_objs.c
+** data_objs.c
 */
 int					get_res(t_data *data, char *line);
 int					get_amb(t_data *data, char *line);
@@ -345,7 +354,7 @@ int					get_cam(t_data *data, char *line);
 int					get_lgt(t_data *data, char *line);
 
 /*
-data_objs2.c
+** data_objs2.c
 */
 int					get_pl(t_data *data, char *line);
 int					get_sp(t_data *data, char *line);
@@ -354,7 +363,7 @@ int					get_cy(t_data *data, char *line);
 int					get_tr(t_data *data, char *line);
 
 /*
-data_utils.c
+** data_utils.c
 */
 double				floatoi(char *line);
 double				get_abc(int coord, char *line);
@@ -362,7 +371,7 @@ void				get_abc_obj(int id, int type, void *obj, char *line);
 void				obj_append(int id, void *obj, t_data *data);
 
 /*
-data_utils2.c
+** data_utils2.c
 */
 int					nb_len(char *str);
 int					skip_ws(char *line);
@@ -370,14 +379,14 @@ int					skip_float(char *line);
 int					skip_coord(char *line);
 
 /*
-data_abc.c
+** data_abc.c
 */
 void				get_abc_amb(t_amb *obj, char *line);
 void				get_abc_cam(int type, t_cam *obj, char *line);
 void				get_abc_lgt(int type, t_lgt *obj, char *line);
 
 /*
-data_abc2.c
+** data_abc2.c
 */
 void				get_abc_pl(int type, t_pl *obj, char *line);
 void				get_abc_sp(int type, t_sp *obj, char *line);
@@ -386,13 +395,13 @@ void				get_abc_cy(int type, t_cy *obj, char *line);
 void				get_abc_tr(int type, t_tr *obj, char *line);
 
 /*
-data_append.c
+** data_append.c
 */
 void				cam_append(t_cam *obj, t_data *data);
 void				lgt_append(t_lgt *obj, t_data *data);
 
 /*
-data_append2.c
+** data_append2.c
 */
 void				pl_append(t_pl *obj, t_data *data);
 void				sp_append(t_sp *obj, t_data *data);
@@ -418,14 +427,14 @@ int					check_cy(char *line);
 int					check_tr(char *line);
 
 /*
-ray_tracer.c
+** ray_tracer.c
 */
 int					ray_tracer(t_data *data);
 int					**init_tab_pix(int res_y, int res_x);
 int					get_pix(t_data *data, t_pxl pxl, t_mtx4 m);
 
 /*
-ray_tracer_utils.c
+** ray_tracer_utils.c
 */
 void				normalize(t_vec *vec);
 double				dot_p(t_vec a, t_vec b);
@@ -447,6 +456,7 @@ t_obj				closest_tr(t_data *data, t_vec cam_ray, t_vec cl);
 */
 t_obj				closest_obj(t_data *data, t_vec cam_ray);
 int					events(int keycode, void *infos_ptr);
+int					cross(void *infos_ptr);
 void				init_scene(t_infos *infos, t_data *data);
 void				print_scene(t_data *data, int **pix);
 
@@ -477,6 +487,8 @@ double				cy_best_root(t_root t, t_cy *cy, t_vec cl, t_vec ray);
 /*
 ** intersection_utils3.c
 */
+void				init_vec(t_vec *v);
+double				dist_sqr(t_vec p, t_cy *cy);
 void				tr_init_vertices(t_vec tab[3], t_tr *tr);
 double				tr_plan(t_vec ray, t_tr *tr, t_vec cl, t_vec n);
 double				tr_barycenter(t_vec tab[3], t_vec ap, double ret);
@@ -485,7 +497,8 @@ double				tr_barycenter(t_vec tab[3], t_vec ap, double ret);
 ** light_intersection.c
 */
 int					same_point(t_vec lgt_vec, t_vec cl, t_obj ref, double t);
-long double			any_intersection(t_data *data, t_vec lgt_vec, t_vec cl, t_obj ref);
+long double			any_intersection(t_data *data, t_vec lgt_vec, t_vec cl,
+					t_obj ref);
 int					lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data);
 
 /*
@@ -498,9 +511,8 @@ long double			cy_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref);
 long double			tr_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref);
 
 /*
-facing_ratio.c
+** facing_ratio.c
 */
-double				f_ratio(t_obj obj, t_lgt *lgt, t_cam *c);
 double				f_ratio_pl(t_obj obj, t_lgt *lgt, t_cam *c);
 double				f_ratio_sp(t_obj obj, t_lgt *lgt, t_cam *c);
 double				f_ratio_sq(t_obj obj, t_lgt *lgt, t_cam *c);
@@ -510,6 +522,8 @@ double				f_ratio_tr(t_obj obj, t_lgt *lgt, t_cam *c);
 /*
 ** facing_ratio2.c
 */
+double				f_ratio(t_obj obj, t_lgt *lgt, t_cam *c);
+t_vec				get_n(t_vec u, t_vec op, t_obj obj, double t);
 t_vec				get_right_n(t_vec n, t_cam *cam, t_obj obj);
 
 /*
@@ -536,7 +550,6 @@ double				get_len_lgt(t_obj obj, t_lgt *lgt);
 int					color_obj(t_data *data, t_obj obj);
 int					color_reflexion(t_obj obj, double ratio, t_col col);
 
-
 /*
 ** reflexion.c
 */
@@ -551,6 +564,5 @@ int					color_tr(t_obj obj, double ratio, t_col col);
 */
 void				write_img(t_bmp bmp, t_infos *infos);
 void				write_bmp(t_infos *infos);
-
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_objs2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 15:59:08 by florianhame       #+#    #+#             */
-/*   Updated: 2020/05/25 15:59:16 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 10:48:15 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_pl(char *line)
 {
 	int	i;
 	int	ret;
-	
+
 	i = 0;
 	ret = 0;
 	if (check_ws(&i, line) == -1)
@@ -24,7 +24,7 @@ int	check_pl(char *line)
 	if ((ret = check_coord(&line[i])) == -1)
 		return (-1);
 	i += ret;
-	if (check_ws(&i, line) == -1)  
+	if (check_ws(&i, line) == -1)
 		return (-1);
 	if ((ret = check_vec(&line[i])) == -1)
 		return (-1);
@@ -38,7 +38,7 @@ int	check_sp(char *line)
 {
 	int	i;
 	int	ret;
-	
+
 	i = 0;
 	ret = 0;
 	if (check_ws(&i, line) == -1)
@@ -62,7 +62,7 @@ int	check_sq(char *line)
 {
 	int	i;
 	int	ret;
-	
+
 	i = 0;
 	ret = 0;
 	if (check_ws(&i, line) == -1)
@@ -91,7 +91,7 @@ int	check_cy(char *line)
 {
 	int	i;
 	int	ret;
-	
+
 	i = 0;
 	ret = 0;
 	if (check_ws(&i, line) == -1)
@@ -120,7 +120,7 @@ int	check_tr(char *line)
 {
 	int	i;
 	int	ret;
-	
+
 	i = 0;
 	ret = 0;
 	if (check_ws(&i, line) == -1)

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/30 23:50:57 by florianhame       #+#    #+#             */
-/*   Updated: 2020/04/25 15:39:20 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 10:38:19 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
 
 int	nb_len(char *str)
 {
@@ -54,4 +53,3 @@ int	skip_coord(char *line)
 		i++;
 	return (i);
 }
-

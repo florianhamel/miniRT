@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+         #
+#    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2020/10/25 18:00:34 by florianhame      ###   ########.fr        #
+#    Updated: 2020/10/30 02:12:24 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,20 +55,34 @@ _SRC_		=	block.c \
 				ray_tracer_utils.c \
 				reflexion.c \
 				save.c \
-				scene.c \
 				screen.c \
 				screen_utils.c
 
 SRCS		=	$(addprefix $(D_SRCS), $(_SRC_))
 OBJS		=	$(addprefix $(D_OBJS), $(_SRC_:.c=.o))
 FT_PRINTF	=	libftprintf.a
+APPS		=	-framework OpenGL -framework Appkit
+MLX_DIR		=	mlx_macos/
+
+OS			:= $(shell uname)
+
+ifeq	($(OS), Linux)
+	MLX_DIR	=	mlx_linux/
+	APPS	=	-lm -lXext -lX11
+	_SRC_ 	+=	scene_linux.c
+endif
+
+ifeq	($(OS), Darwin)
+	_SRC_	+= scene_macos.c
+endif
+
 MLX			=	libmlx.a
 
 ################################################################################
 #####                           COMPILER OPTIONS                           #####
 ################################################################################
 
-CC			=	clang
+CC			=	gcc
 FLAGS		=	-Wall -Wextra -Werror
 FSANITIZE	=	-g -fsanitize=address
 
@@ -86,15 +100,11 @@ $(D_OBJS) :
 $(FT_PRINTF) : FORCE
 	@make -C ft_printf
 
-# $(MLX) : FORCE
-# 	@make -C mlx 
-
 $(D_OBJS)%.o : $(D_SRCS)%.c
 	$(CC) $(FLAGS) -c $< -o $@ -Iincludes -Ift_printf -Imlx
 
 $(MINI_RT) : $(FT_PRINTF) $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) $(FSANITIZE) -framework OpenGL -framework Appkit -o $@ \
-	-Iincludes -Ift_printf -Lft_printf -lftprintf -Lmlx -lmlx
+	@$(CC) $(FLAGS) $(OBJS) $(APPS) -Iincludes -Ift_printf -Lft_printf -lftprintf -L$(MLX_DIR) -lmlx -o $@
 
 clean :
 	@rm -rf $(D_OBJS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: florianhamel <florianhamel@student.42.f    +#+  +:+       +#+        */
+/*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 16:57:47 by florianhame       #+#    #+#             */
-/*   Updated: 2020/06/24 12:07:51 by florianhame      ###   ########.fr       */
+/*   Updated: 2020/10/28 09:34:33 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
