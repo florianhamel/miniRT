@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 12:04:34 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 09:08:34 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/02 11:22:05 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ long double	any_intersection(t_data *data, t_vec lgt_vec, t_vec cl, t_obj ref)
 	return (0);
 }
 
-int			lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data)
+long double	lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data)
 {
 	t_vec		lgt_vec;
 	t_vec		cl;

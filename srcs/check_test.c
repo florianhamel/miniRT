@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/26 17:02:13 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 10:46:25 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/10/30 16:24:00 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
 
 void	init_test(t_test *test)
 {

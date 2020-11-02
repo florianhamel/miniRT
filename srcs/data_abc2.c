@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 16:41:24 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 10:42:55 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/01 12:31:08 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include "ft_printf.h"
 
 void	get_abc_pl(int type, t_pl *obj, char *line)
 {

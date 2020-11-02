@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 11:16:05 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 10:44:26 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/02 11:21:18 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		color_obj(t_data *data, t_obj obj)
 	init_col(&col, data);
 	while (lgt != NULL)
 	{
-		if (!lgt_intersection(obj, lgt, data))
+		if (lgt_intersection(obj, lgt, data) == 0)
 		{
 			ratio = fmax(0, f_ratio(obj, lgt, data->c));
 			col.r += lgt->r * lgt->power * ratio;

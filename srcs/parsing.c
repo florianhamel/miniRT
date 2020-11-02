@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 14:02:01 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 11:24:06 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/02 16:46:10 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include "ft_printf.h"
 
 int		rt_file(int fd, t_data *data)
 {
@@ -116,5 +115,5 @@ initializing the data.\n");
 extracting the data.\n");
 	if (err == 9)
 		ft_printf("Error 9\nA problem was encountered with ray tracer.\n");
-	exit(ERROR);
+	exit(err);
 }

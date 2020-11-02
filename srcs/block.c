@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 11:52:49 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 11:20:11 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/02 10:39:22 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
 
 long double	pl_block(t_obj obj, t_vec lgt_vec, t_vec cl, t_obj ref)
 {

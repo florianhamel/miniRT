@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/28 20:23:19 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 10:38:52 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/01 12:31:44 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include "ft_printf.h"
 
 double	floatoi(char *line)
 {

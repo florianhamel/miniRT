@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 16:57:47 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 09:34:33 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/01 12:32:04 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include <stdio.h>
 
 double	sp_roots(double a, double b, double delta)
 {

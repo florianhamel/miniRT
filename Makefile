@@ -6,7 +6,7 @@
 #    By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/25 20:20:38 by florianhame       #+#    #+#              #
-#    Updated: 2020/10/30 02:12:24 by fhamel           ###   ########.fr        #
+#    Updated: 2020/11/02 17:37:01 by fhamel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,19 +61,19 @@ _SRC_		=	block.c \
 SRCS		=	$(addprefix $(D_SRCS), $(_SRC_))
 OBJS		=	$(addprefix $(D_OBJS), $(_SRC_:.c=.o))
 FT_PRINTF	=	libftprintf.a
-APPS		=	-framework OpenGL -framework Appkit
-MLX_DIR		=	mlx_macos/
 
 OS			:= $(shell uname)
 
 ifeq	($(OS), Linux)
 	MLX_DIR	=	mlx_linux/
-	APPS	=	-lm -lXext -lX11
-	_SRC_ 	+=	scene_linux.c
+	APPS	=	-L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+	_SRC_ 	+=	scene_linux.c scene_linux2.c
 endif
 
 ifeq	($(OS), Darwin)
-	_SRC_	+= scene_macos.c
+	MLX_DIR	=	mlx_macos/
+	APPS	=	-L$(MLX_DIR) -lmlx -framework Appkit -framework OpenGL
+	_SRC_	+=	scene_macos.c
 endif
 
 MLX			=	libmlx.a
@@ -101,10 +101,10 @@ $(FT_PRINTF) : FORCE
 	@make -C ft_printf
 
 $(D_OBJS)%.o : $(D_SRCS)%.c
-	$(CC) $(FLAGS) -c $< -o $@ -Iincludes -Ift_printf -Imlx
+	$(CC) $(FLAGS) -c $< -o $@ -Iincludes -Ift_printf
 
 $(MINI_RT) : $(FT_PRINTF) $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) $(APPS) -Iincludes -Ift_printf -Lft_printf -lftprintf -L$(MLX_DIR) -lmlx -o $@
+	@$(CC) $(FLAGS) $(OBJS) $(APPS) -Lft_printf -lftprintf -o $@
 
 clean :
 	@rm -rf $(D_OBJS)

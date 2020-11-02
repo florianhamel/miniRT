@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 19:13:56 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 10:45:54 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/01 12:29:53 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include "ft_printf.h"
 
 int	check_nb(char *line)
 {

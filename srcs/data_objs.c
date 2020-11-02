@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 15:17:31 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 10:41:57 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/01 12:31:33 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include "ft_printf.h"
 
 int	get_res(t_data *data, char *line)
 {

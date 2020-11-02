@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/24 17:44:41 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/28 11:23:14 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/02 17:28:58 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include "ft_printf.h"
 
 int		parsing(char *line, t_test *test)
 {
@@ -40,13 +39,18 @@ void	set_cam(t_data *data)
 {
 	t_cam	*cam;
 
-	data->c = data->cam;
-	cam = data->cam;
-	while (cam->next != NULL)
-		cam = cam->next;
-	data->cam->prev = cam;
-	cam->next = data->cam;
-	cam = data->cam;
+	if (data->cam == NULL)
+		error_file_function(15);
+	else
+	{
+		data->c = data->cam;
+		cam = data->cam;
+		while (cam->next != NULL)
+			cam = cam->next;
+		data->cam->prev = cam;
+		cam->next = data->cam;
+		cam = data->cam;
+	}
 }
 
 void	error_file_function(int err)
@@ -60,5 +64,9 @@ void	error_file_function(int err)
 \"-save\".\n");
 	if (err == 13)
 		ft_printf("Error 13\nThe file couldn't be opened.\n");
-	exit(ERROR);
+	if (err == 14)
+		ft_printf("Error 14\nInvalid file name or no \".rt\" extension.\n");
+	if (err == 15)
+		ft_printf("Error 15\nThis is an empty file, nice try.\n");
+	exit(err);
 }

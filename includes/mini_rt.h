@@ -6,37 +6,41 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/10/30 02:00:34 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/02 16:50:01 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	MINI_RT_H
+#ifndef MINI_RT_H
 # define MINI_RT_H
 
+# include "ft_printf.h"
 # include <stdlib.h>
 # include <math.h>
 # include <unistd.h>
 # include <fcntl.h>
 
 # define SAME_POINT 0.000001
-# define ERROR -1
+# define VISI_NOTIFY 15
+# define VISI_CHANGE_MASK 65536
 # define DESTROY_NOTIFY 17
 # define STRUCT_NOTIFY_MASK 131072
 # define KEY_PRESS 2
 # define KEY_PRESS_MASK 1
 
-#if		defined(__linux__)
-# include <X11/Xlib.h>
-	# include "../mlx_linux/mlx.h"
-	# define ESCAPE_WIN 65307
-	# define PREV_SCENE 65361
-	# define NEXT_SCENE 65363
-#elif 	defined(__APPLE__)
-	# include "../mlx_macos/mlx.h"
-	# define ESCAPE_WIN 53
-	# define PREV_SCENE 123
-	# define NEXT_SCENE 124
-#endif
+# ifdef __linux__
+#  include <X11/Xlib.h>
+#  include "../mlx_linux/mlx.h"
+#  define ESCAPE_WIN 65307
+#  define PREV_SCENE 65361
+#  define NEXT_SCENE 65363
+# endif
+
+# ifdef __APPLE__
+#  include "../mlx_macos/mlx.h"
+#  define ESCAPE_WIN 53
+#  define PREV_SCENE 123
+#  define NEXT_SCENE 124
+# endif
 
 typedef	struct		s_test
 {
@@ -290,11 +294,6 @@ typedef	struct		s_bmp
 int					check_save_opt(char **av);
 
 /*
-** mini_rt.c
-*/
-int					mini_rt(char *file);
-
-/*
 ** gnl
 */
 int					get_next_line(int fd, char **line);
@@ -325,6 +324,7 @@ int					check_color(char *line);
 /*
 ** check_utils2.c
 */
+int					check_res_val(char *line, int max_res);
 int					check_ws(int *i, char *line);
 int					check_obj_color(int i, char *line);
 int					check_l_ratio_color(int i, char *line);
@@ -455,9 +455,11 @@ t_obj				closest_tr(t_data *data, t_vec cam_ray, t_vec cl);
 ** scene.c
 */
 t_obj				closest_obj(t_data *data, t_vec cam_ray);
+int					visible(void *infos_ptr);
 int					events(int keycode, void *infos_ptr);
 int					cross(void *infos_ptr);
 void				init_scene(t_infos *infos, t_data *data);
+void				fill_img(t_infos *infos, t_data *data, int **pix);
 void				print_scene(t_data *data, int **pix);
 
 /*
@@ -499,7 +501,7 @@ double				tr_barycenter(t_vec tab[3], t_vec ap, double ret);
 int					same_point(t_vec lgt_vec, t_vec cl, t_obj ref, double t);
 long double			any_intersection(t_data *data, t_vec lgt_vec, t_vec cl,
 					t_obj ref);
-int					lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data);
+long double			lgt_intersection(t_obj obj, t_lgt *lgt, t_data *data);
 
 /*
 ** block.c

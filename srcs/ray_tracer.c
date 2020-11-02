@@ -6,12 +6,11 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/07 10:12:44 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/27 23:39:55 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/01 12:33:02 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
-#include "ft_printf.h"
 
 int	ray_tracer(t_data *data)
 {
