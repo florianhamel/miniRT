@@ -6,13 +6,13 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:19:39 by fhamel            #+#    #+#             */
-/*   Updated: 2020/11/02 17:13:43 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/05 16:52:20 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int	check_save_opt(char **opt)
+int		check_save_opt(char **opt)
 {
 	int		i;
 	char	*str;
@@ -31,14 +31,14 @@ int	check_save_opt(char **opt)
 void	params_checker(int ac, char **av, t_data *data)
 {
 	int		i;
-	
+
 	i = 0;
 	if (ac == 1)
 		error_file_function(10);
 	else if (ac == 2 || ac == 3)
 	{
 		if (ac == 3 && check_save_opt(av) == -1)
-				error_file_function(12);
+			error_file_function(12);
 		else if (ac == 3)
 			data->save = 1;
 		if (ac == 2)
@@ -71,7 +71,7 @@ void	mini_rt(int ac, char **av)
 		error_file_function(9);
 }
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	mini_rt(ac, av);
 	return (0);

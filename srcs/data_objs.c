@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/25 15:17:31 by florianhame       #+#    #+#             */
-/*   Updated: 2020/11/01 12:31:33 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/05 18:05:00 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	get_res(t_data *data, char *line)
 	res->id = 0;
 	i = skip_ws(line);
 	res->x = ft_atoi(&line[i]);
+	res->x = (res->x > 1920 ? 1920 : res->x);
 	i += skip_float(&line[i]);
 	i += skip_ws(&line[i]);
 	res->y = ft_atoi(&line[i]);
+	res->y = (res->y > 1080 ? 1080 : res->y);
 	data->res = res;
 	return (0);
 }

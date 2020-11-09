@@ -6,20 +6,20 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:43:51 by florianhame       #+#    #+#             */
-/*   Updated: 2020/10/30 16:54:59 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/05 18:12:42 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_rt.h"
 
-int	check_res_val(char *line, int max_res)
+int	check_res_val(char *line)
 {
 	int	res;
 	int	i;
 
-	res = atoi(line);
+	res = ft_atoi(line);
 	i = 0;
-	if (res < 100 || max_res < res)
+	if (res < 100)
 		return (-1);
 	while ('0' <= line[i] && line[i] <= '9')
 		i++;

@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 12:51:32 by florianhame       #+#    #+#             */
-/*   Updated: 2020/11/02 12:06:14 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/05 18:13:03 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int	check_r(char *line)
 	ret = 0;
 	if (check_ws(&i, line) == -1)
 		return (-1);
-	if ((ret = check_res_val(&line[i], 1920)) == -1)
+	if ((ret = check_res_val(&line[i])) == -1)
 		return (-1);
 	i += ret;
 	if (check_ws(&i, line) == -1)
 		return (-1);
-	if ((ret = check_res_val(&line[i], 1080)) == -1)
+	if ((ret = check_res_val(&line[i])) == -1)
 		return (-1);
 	i += ret;
 	while (line[i] == 32 || line[i] == 9)

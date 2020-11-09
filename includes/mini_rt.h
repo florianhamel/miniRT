@@ -6,7 +6,7 @@
 /*   By: fhamel <fhamel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 15:21:46 by fhamel            #+#    #+#             */
-/*   Updated: 2020/11/02 16:50:01 by fhamel           ###   ########.fr       */
+/*   Updated: 2020/11/05 18:06:48 by fhamel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 
 # define SAME_POINT 0.000001
+# define TEST 0.1
 # define VISI_NOTIFY 15
 # define VISI_CHANGE_MASK 65536
 # define DESTROY_NOTIFY 17
@@ -292,6 +293,8 @@ typedef	struct		s_bmp
 ** main.c
 */
 int					check_save_opt(char **av);
+void				params_checker(int ac, char **av, t_data *data);
+void				mini_rt(int ac, char **av);
 
 /*
 ** gnl
@@ -324,7 +327,7 @@ int					check_color(char *line);
 /*
 ** check_utils2.c
 */
-int					check_res_val(char *line, int max_res);
+int					check_res_val(char *line);
 int					check_ws(int *i, char *line);
 int					check_obj_color(int i, char *line);
 int					check_l_ratio_color(int i, char *line);
